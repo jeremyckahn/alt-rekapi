@@ -4,13 +4,14 @@
   "homepage": "http://rekapi.com",
   "author": "Jeremy Kahn <jeremyckahn@gmail.com>",
   "description": "A keyframe animation library for JavaScript",
-  "contributors": [
-  ],
+  "contributors": [],
   "devDependencies": {
+    "babel-cli": "^6.4.5",
+    "babel-preset-es2015": "^6.3.13"
   },
   "scripts": {
+    "build": "./node_modules/.bin/babel src -d lib"
   },
   "license": "MIT",
-  "dependencies": {
-  }
+  "dependencies": {}
 }
