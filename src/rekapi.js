@@ -1,4 +1,4 @@
-export class Rekapi {
+export class Timeline {
   constructor () {
   }
 }
