@@ -10,14 +10,17 @@
     "babel-loader": "^6.2.2",
     "babel-preset-es2015": "^6.3.13",
     "mocha": "^2.4.5",
+    "node-inspector": "^0.12.5",
     "nodemon": "^1.8.1",
-    "webpack": "^1.12.12"
+    "webpack": "^1.12.12",
+    "zaport": "0.0.7"
   },
   "scripts": {
     "build": "sh task.sh build",
     "build-dist": "sh task.sh build-dist",
     "test": "sh task.sh test",
-    "test-watch": "sh task.sh test-watch"
+    "test-watch": "sh task.sh test-watch",
+    "test-debug-ui": "sh task.sh test-debug-ui"
   },
   "license": "MIT",
   "dependencies": {}
