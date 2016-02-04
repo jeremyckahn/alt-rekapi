@@ -9,4 +9,8 @@ case "$COMMAND" in
   build )
     babel src -d lib
   ;;
+
+  build-dist )
+    webpack -d -p
+  ;;
 esac
