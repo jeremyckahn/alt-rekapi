@@ -13,6 +13,7 @@
   "curly": true,
   "eqeqeq": true,
   "eqnull": true,
+  "esversion": 6,
   "esnext": true,
   "immed": true,
   "lastsemic": true,
