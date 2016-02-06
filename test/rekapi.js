@@ -25,4 +25,15 @@ describe('Timeline', function () {
       assert.equal(actual, expected);
     });
   });
+
+  describe('#toJSON', function () {
+    it('returns data', function () {
+      var actual = timeline.toJSON()
+      var expected = {
+        actors: []
+      };
+
+      assert.deepEqual(actual, expected);
+    });
+  });
 });
