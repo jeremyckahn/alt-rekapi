@@ -1,4 +1,4 @@
-var rekapi = require('../lib/rekapi');
+var rekapi = require('../tmp/rekapi');
 var assert = require('assert');
 
 describe('Timeline', function () {
