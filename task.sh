@@ -6,7 +6,7 @@ BIN="./node_modules/.bin"
 export PATH=$BIN:$PATH
 
 function build () {
-  babel src -d lib
+  babel src -d tmp
 }
 
 case "$COMMAND" in
@@ -20,18 +20,18 @@ case "$COMMAND" in
 
   test )
     build
-    mocha
+    mocha --recursive
   ;;
 
   test-watch )
     nodemon \
-      --exec "babel src -d lib && mocha" \
+      --exec "babel src -d tmp && mocha --recursive" \
       --watch src \
       --watch test
   ;;
 
   test-debug-ui )
-    mocha --debug-brk &
+    mocha --recursive --debug-brk &
     node-inspector &
     NODE_INSPECTOR_PID=$!
     open "http://127.0.0.1:8080/?ws=127.0.0.1:8080&port=5858"
