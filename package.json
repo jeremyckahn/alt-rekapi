@@ -20,6 +20,7 @@
     "build-dist": "sh task.sh build-dist",
     "test": "sh task.sh test",
     "test-watch": "sh task.sh test-watch",
+    "test-debug": "sh task.sh test-debug",
     "test-debug-ui": "sh task.sh test-debug-ui"
   },
   "license": "MIT",

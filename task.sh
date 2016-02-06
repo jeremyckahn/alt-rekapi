@@ -30,6 +30,11 @@ case "$COMMAND" in
       --watch test
   ;;
 
+  test-debug )
+    babel src -d tmp
+    mocha --recursive debug
+  ;;
+
   test-debug-ui )
     mocha --recursive --debug-brk &
     node-inspector &
