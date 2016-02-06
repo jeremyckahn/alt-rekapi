@@ -17,12 +17,12 @@ describe('Timeline', function () {
 
   describe('#getState', function () {
     it('returns data', function () {
-      var actual = JSON.stringify(timeline.getState())
-      var expected = JSON.stringify({
+      var actual = Immutable.Map(timeline.getState()).toJSON();
+      var expected = {
         actors: []
-      });
+      };
 
-      assert.equal(actual, expected);
+      assert.deepEqual(actual, expected);
     });
   });
 
