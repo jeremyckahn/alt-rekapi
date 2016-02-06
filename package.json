@@ -24,5 +24,8 @@
     "test-debug-ui": "sh task.sh test-debug-ui"
   },
   "license": "MIT",
-  "dependencies": {}
+  "dependencies": {
+    "immutable": "^3.7.6",
+    "redux": "^3.3.0"
+  }
 }

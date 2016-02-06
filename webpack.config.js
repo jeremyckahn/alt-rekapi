@@ -1,9 +1,9 @@
 module.exports = {
-  entry: './src/rekapi.js',
+  entry: './src/main.js',
   output: {
     filename: './dist/rekapi.js',
     libraryTarget: 'umd',
-    library: 'Rekapi'
+    library: 'rekapi'
   },
   module: {
     loaders: [
