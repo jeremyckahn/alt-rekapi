@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 
-import timeline from './timeline';
+import actors from './actors';
 
 export default combineReducers({
-  timeline
+  actors
 });

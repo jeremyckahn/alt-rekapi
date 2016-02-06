@@ -5,4 +5,11 @@ export class Timeline {
   constructor () {
     this.store = createStore(reducer);
   }
+
+  /**
+   * @return {Immutable.Map}
+   */
+  getState () {
+    return this.store.getState();
+  }
 }
