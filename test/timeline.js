@@ -36,4 +36,26 @@ describe('Timeline', function () {
       assert.deepEqual(actual, expected);
     });
   });
+
+  describe('#keyframe', function () {
+    beforeEach(function () {
+      timeline.keyframe('actor-1', 0, {});
+    });
+
+    it('adds a new keyframe', function () {
+      var actual = timeline.toJSON();
+      var expected = {
+        actors: [{
+          id: 'actor-1',
+          keyframes: [{
+            ms: 0,
+            props: {},
+            easing: {}
+          }]
+        }]
+      };
+
+      assert.deepEqual(actual, expected);
+    });
+  });
 });
