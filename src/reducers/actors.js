@@ -15,11 +15,10 @@ export default function (state=initialState, action) {
 
       var newActor = Map({
         id: action.id,
-        keyframes: [{
-          ms: action.ms,
-          props: action.props,
-          easing: action.easing
-        }]
+        start: 0,
+        end: 0,
+        trackNames: Object.keys(action.props),
+        propertyTracks: {}
       });
 
       if (indexOfActor === -1) {

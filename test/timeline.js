@@ -19,7 +19,9 @@ describe('Timeline', function () {
     it('returns data', function () {
       var actual = Immutable.Map(timeline.getState()).toJSON();
       var expected = {
-        actors: []
+        duration: 0,
+        actors: [],
+        customCurves: {}
       };
 
       assert.deepEqual(actual, expected);
@@ -30,7 +32,9 @@ describe('Timeline', function () {
     it('returns data', function () {
       var actual = timeline.toJSON()
       var expected = {
-        actors: []
+        duration: 0,
+        actors: [],
+        customCurves: {}
       };
 
       assert.deepEqual(actual, expected);
@@ -45,14 +49,15 @@ describe('Timeline', function () {
     it('adds a new keyframe', function () {
       var actual = timeline.toJSON();
       var expected = {
+        duration: 0,
         actors: [{
           id: 'actor-1',
-          keyframes: [{
-            ms: 0,
-            props: {},
-            easing: {}
-          }]
-        }]
+          start: 0,
+          end: 0,
+          trackNames: [],
+          propertyTracks: {}
+        }],
+        customCurves: {}
       };
 
       assert.deepEqual(actual, expected);
