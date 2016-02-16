@@ -17,7 +17,6 @@ export default function (state=initialState, action) {
         id: action.id,
         start: 0,
         end: 0,
-        trackNames: Object.keys(action.props),
         propertyTracks: {}
       });
 

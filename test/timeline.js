@@ -42,34 +42,35 @@ describe('Timeline', function () {
   });
 
   describe('#keyframe', function () {
-    describe('empty keyframes', function () {
-      beforeEach(function () {
-        timeline.keyframe('actor-1', 0, {});
-      });
+    describe('single keyframes', function () {
+      describe('empty keyframes', function () {
+        beforeEach(function () {
+          timeline.keyframe('actor-1', 0, {});
+        });
 
-      it('adds a new keyframe', function () {
-        var actual = timeline.toJSON();
-        var expected = {
-          duration: 0,
-          actors: [{
-            id: 'actor-1',
-            start: 0,
-            end: 0,
-            trackNames: [],
-            propertyTracks: {}
-          }],
-          customCurves: {}
-        };
+        it('adds a new keyframe', function () {
+          var actual = timeline.toJSON();
+          var expected = {
+            duration: 0,
+            actors: [{
+              id: 'actor-1',
+              start: 0,
+              end: 0,
+              propertyTracks: {}
+            }],
+            customCurves: {}
+          };
 
-        assert.deepEqual(actual, expected);
-      });
+          assert.deepEqual(actual, expected);
+        });
 
-      it('expands the timeline duration', function () {
-        timeline.keyframe('actor-1', 100, {});
-        var actual = timeline.toJSON().duration;
-        var expected = 100;
+        it('expands the timeline duration', function () {
+          timeline.keyframe('actor-1', 100, {});
+          var actual = timeline.toJSON().duration;
+          var expected = 100;
 
-        assert.deepEqual(actual, expected);
+          assert.deepEqual(actual, expected);
+        });
       });
     });
   });
