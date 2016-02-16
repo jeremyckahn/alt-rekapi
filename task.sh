@@ -14,7 +14,7 @@ case "$COMMAND" in
     build
   ;;
 
-  build-dist )
+  build:dist )
     webpack -d -p
   ;;
 
@@ -23,19 +23,19 @@ case "$COMMAND" in
     mocha --recursive
   ;;
 
-  test-watch )
+  test:watch )
     nodemon \
       --exec "babel src -d tmp && mocha --recursive" \
       --watch src \
       --watch test
   ;;
 
-  test-debug )
+  test:debug )
     babel src -d tmp
     mocha --recursive debug
   ;;
 
-  test-debug-ui )
+  test:debug:ui )
     mocha --recursive --debug-brk &
     node-inspector &
     NODE_INSPECTOR_PID=$!
