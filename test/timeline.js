@@ -72,6 +72,35 @@ describe('Timeline', function () {
           assert.deepEqual(actual, expected);
         });
       });
+
+      describe('non-empty keyframes', function () {
+        beforeEach(function () {
+          timeline.keyframe('actor-1', 0, { x: 0 });
+        });
+
+        it('adds a new keyframe', function () {
+          var actual = timeline.toJSON();
+          var expected = {
+            duration: 0,
+            actors: [{
+              id: 'actor-1',
+              start: 0,
+              end: 0,
+              propertyTracks: {
+                x: [{
+                  ms: 0,
+                  name: 'x',
+                  value: 0,
+                  easing: 'linear'
+                }]
+              }
+            }],
+            customCurves: {}
+          };
+
+          assert.deepEqual(actual, expected);
+        });
+      });
     });
   });
 });
