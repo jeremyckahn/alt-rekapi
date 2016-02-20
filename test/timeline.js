@@ -63,14 +63,6 @@ describe('Timeline', () => {
 
           assert.deepEqual(actual, expected);
         });
-
-        it('expands the timeline duration', () => {
-          timeline.keyframe('actor-1', 100, {});
-          var actual = timeline.toJSON().duration;
-          var expected = 100;
-
-          assert.deepEqual(actual, expected);
-        });
       });
 
       describe('non-empty keyframes', () => {
@@ -334,6 +326,22 @@ describe('Timeline', () => {
               assert.deepEqual(actual, expected);
             });
           });
+        });
+      });
+    });
+
+    describe('multiple keyframes', () => {
+      describe('empty keyframes', () => {
+        beforeEach(() => {
+          timeline.keyframe('actor-1', 0, {});
+        });
+
+        it('expands the timeline duration', () => {
+          timeline.keyframe('actor-1', 100, {});
+          var actual = timeline.toJSON().duration;
+          var expected = 100;
+
+          assert.deepEqual(actual, expected);
         });
       });
     });
