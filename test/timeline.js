@@ -141,10 +141,133 @@ describe('Timeline', () => {
         });
 
         describe('object easing', () => {
-          describe('single property, single easing', () => {});
-          describe('multiple properties, single easing', () => {});
-          describe('multiple properties, multiple easings', () => {});
-          describe('single property, multiple easings', () => {});
+          describe('single property, single easing', () => {
+            beforeEach(() => {
+              timeline.keyframe('actor-1', 0, { x: 0 }, { x: 'fakeEasing' });
+            });
+
+            it('adds a new keyframe', () => {
+              var actual = timeline.toJSON();
+              var expected = {
+                duration: 0,
+                actors: [{
+                  id: 'actor-1',
+                  start: 0,
+                  end: 0,
+                  propertyTracks: {
+                    x: [{
+                      ms: 0,
+                      name: 'x',
+                      value: 0,
+                      easing: 'fakeEasing'
+                    }]
+                  }
+                }],
+                customCurves: {}
+              };
+
+              assert.deepEqual(actual, expected);
+            });
+          });
+
+          describe('multiple properties, single easing', () => {
+            beforeEach(() => {
+              timeline.keyframe('actor-1', 0, { x: 0, y: 0 }, { x: 'fakeEasing' });
+            });
+
+            it('adds a new keyframe', () => {
+              var actual = timeline.toJSON();
+              var expected = {
+                duration: 0,
+                actors: [{
+                  id: 'actor-1',
+                  start: 0,
+                  end: 0,
+                  propertyTracks: {
+                    x: [{
+                      ms: 0,
+                      name: 'x',
+                      value: 0,
+                      easing: 'fakeEasing'
+                    }],
+                    y: [{
+                      ms: 0,
+                      name: 'y',
+                      value: 0,
+                      easing: 'linear'
+                    }]
+                  }
+                }],
+                customCurves: {}
+              };
+
+              assert.deepEqual(actual, expected);
+            });
+          });
+
+          describe('multiple properties, multiple easings', () => {
+            beforeEach(() => {
+              timeline.keyframe('actor-1', 0, { x: 0, y: 0 }, { x: 'fakeEasing', y: 'fakeEasing' });
+            });
+
+            it('adds a new keyframe', () => {
+              var actual = timeline.toJSON();
+              var expected = {
+                duration: 0,
+                actors: [{
+                  id: 'actor-1',
+                  start: 0,
+                  end: 0,
+                  propertyTracks: {
+                    x: [{
+                      ms: 0,
+                      name: 'x',
+                      value: 0,
+                      easing: 'fakeEasing'
+                    }],
+                    y: [{
+                      ms: 0,
+                      name: 'y',
+                      value: 0,
+                      easing: 'fakeEasing'
+                    }]
+                  }
+                }],
+                customCurves: {}
+              };
+
+              assert.deepEqual(actual, expected);
+            });
+          });
+
+          describe('single property, multiple easings', () => {
+            beforeEach(() => {
+              timeline.keyframe('actor-1', 0, { x: 0 }, { x: 'fakeEasing', y: 'fakeEasing' });
+            });
+
+            it('adds a new keyframe', () => {
+              var actual = timeline.toJSON();
+              var expected = {
+                duration: 0,
+                actors: [{
+                  id: 'actor-1',
+                  start: 0,
+                  end: 0,
+                  propertyTracks: {
+                    x: [{
+                      ms: 0,
+                      name: 'x',
+                      value: 0,
+                      easing: 'fakeEasing'
+                    }]
+                  }
+                }],
+                customCurves: {}
+              };
+
+              assert.deepEqual(actual, expected);
+            });
+          });
         });
 
         describe('string easing', () => {
