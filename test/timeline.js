@@ -334,11 +334,7 @@ describe('Timeline', () => {
               assert.deepEqual(actual, expected);
             });
           });
-
-          describe('multiple properties, multiple easings', () => {});
-          describe('single property, multiple easings', () => {});
         });
-
       });
     });
   });
