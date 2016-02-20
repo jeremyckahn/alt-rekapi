@@ -16,6 +16,7 @@ export default function (state=initialState, action) {
 
       var newActor = Map({
         id: action.id,
+        // FIXME: Implement and test start > 0 scenarios
         start: 0,
         end: 0,
         propertyTracks: {}
@@ -48,7 +49,8 @@ export default function (state=initialState, action) {
       } else {
 
       }
-    break;
+
+      break;
   }
 
   return state;
