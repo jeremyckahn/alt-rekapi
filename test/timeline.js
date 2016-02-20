@@ -102,10 +102,42 @@ describe('Timeline', () => {
 
               assert.deepEqual(actual, expected);
             });
-
           });
 
-          describe('multiple properties', () => {});
+          describe('multiple properties', () => {
+            beforeEach(() => {
+              timeline.keyframe('actor-1', 0, { x: 0, y: 0 });
+            });
+
+            it('adds a new keyframe', () => {
+              var actual = timeline.toJSON();
+              var expected = {
+                duration: 0,
+                actors: [{
+                  id: 'actor-1',
+                  start: 0,
+                  end: 0,
+                  propertyTracks: {
+                    x: [{
+                      ms: 0,
+                      name: 'x',
+                      value: 0,
+                      easing: 'linear'
+                    }],
+                    y: [{
+                      ms: 0,
+                      name: 'y',
+                      value: 0,
+                      easing: 'linear'
+                    }]
+                  }
+                }],
+                customCurves: {}
+              };
+
+              assert.deepEqual(actual, expected);
+            });
+          });
         });
 
         describe('object easing', () => {
