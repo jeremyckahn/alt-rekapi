@@ -27,9 +27,10 @@ export default function (state=initialState, action) {
 
           var easing = DEFAULT_EASING;
 
-          // FIXME: Need to test/support case where actionEasing is a string
           if (typeof actionEasing !== 'undefined') {
-            if (typeof actionEasing === 'object' && actionEasing[name]) {
+            if (typeof actionEasing === 'string') {
+              easing = actionEasing;
+            } else if (typeof actionEasing === 'object' && actionEasing[name]) {
               easing = actionEasing[name];
             }
           }
