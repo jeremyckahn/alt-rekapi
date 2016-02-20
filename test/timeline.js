@@ -2,21 +2,21 @@ var Immutable = require('immutable');
 var Timeline = require('../tmp/timeline').Timeline;
 var assert = require('assert');
 
-describe('Timeline', function () {
+describe('Timeline', () => {
   var timeline;
 
-  beforeEach(function () {
+  beforeEach(() => {
     timeline = new Timeline();
   });
 
-  it('initializes', function () {
+  it('initializes', () => {
     var actual = timeline instanceof Timeline;
     var expected = true;
     assert.equal(actual, expected);
   });
 
-  describe('#getState', function () {
-    it('returns data', function () {
+  describe('#getState', () => {
+    it('returns data', () => {
       var actual = Immutable.Map(timeline.getState()).toJSON();
       var expected = {
         duration: 0,
@@ -28,8 +28,8 @@ describe('Timeline', function () {
     });
   });
 
-  describe('#toJSON', function () {
-    it('returns data', function () {
+  describe('#toJSON', () => {
+    it('returns data', () => {
       var actual = timeline.toJSON()
       var expected = {
         duration: 0,
@@ -41,14 +41,14 @@ describe('Timeline', function () {
     });
   });
 
-  describe('#keyframe', function () {
-    describe('single keyframes', function () {
-      describe('empty keyframes', function () {
-        beforeEach(function () {
+  describe('#keyframe', () => {
+    describe('single keyframes', () => {
+      describe('empty keyframes', () => {
+        beforeEach(() => {
           timeline.keyframe('actor-1', 0, {});
         });
 
-        it('adds a new keyframe', function () {
+        it('adds a new keyframe', () => {
           var actual = timeline.toJSON();
           var expected = {
             duration: 0,
@@ -64,7 +64,7 @@ describe('Timeline', function () {
           assert.deepEqual(actual, expected);
         });
 
-        it('expands the timeline duration', function () {
+        it('expands the timeline duration', () => {
           timeline.keyframe('actor-1', 100, {});
           var actual = timeline.toJSON().duration;
           var expected = 100;
@@ -73,12 +73,12 @@ describe('Timeline', function () {
         });
       });
 
-      describe('non-empty keyframes', function () {
-        beforeEach(function () {
+      describe('non-empty keyframes', () => {
+        beforeEach(() => {
           timeline.keyframe('actor-1', 0, { x: 0 });
         });
 
-        it('adds a new keyframe', function () {
+        it('adds a new keyframe', () => {
           var actual = timeline.toJSON();
           var expected = {
             duration: 0,
