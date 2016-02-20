@@ -24,15 +24,14 @@ export default function (state=initialState, action) {
       if (indexOfActor === -1) {
         const newPropertyTracks = Map(action.props).map((value, name) => {
           const actionEasing = action.easing;
+          var easing;
 
-          var easing = DEFAULT_EASING;
-
-          if (typeof actionEasing !== 'undefined') {
-            if (typeof actionEasing === 'string') {
-              easing = actionEasing;
-            } else if (typeof actionEasing === 'object' && actionEasing[name]) {
-              easing = actionEasing[name];
-            }
+          if (typeof actionEasing === 'undefined') {
+            easing = DEFAULT_EASING;
+          } else if (typeof actionEasing === 'string') {
+            easing = actionEasing;
+          } else if (typeof actionEasing === 'object') {
+            easing = actionEasing[name] || DEFAULT_EASING;
           }
 
           return [{
