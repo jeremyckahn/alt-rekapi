@@ -11,21 +11,13 @@ export const initialState = fromJS([]);
  * @return {Object}
  */
 function addKeyframe (state, action) {
-  const { ms } = action;
+  const { id, ms } = action;
 
   const indexOfActor = state.findIndex(function (actor) {
-    return actor.id = action.id;
+    return actor.id = id;
   });
 
-  var newActor = Map({
-    id: action.id,
-    // FIXME: Implement and test start > 0 scenarios
-    start: 0,
-    end: 0,
-    propertyTracks: {}
-  });
-
-  const newPropertyTracks = Map(action.props).map((value, name) => {
+  const propertyTracks = Map(action.props).map((value, name) => {
     const actionEasing = action.easing;
     var easing;
 
@@ -45,25 +37,30 @@ function addKeyframe (state, action) {
     }];
   });
 
-  newActor = newActor.set('propertyTracks', newPropertyTracks);
-
   if (indexOfActor === -1) {
+    const newActor = Map({
+      // FIXME: Implement and test start > 0 scenarios
+      start: 0,
+      end: 0,
+      id,
+      propertyTracks
+    });
+
     state = state.push(newActor);
   } else {
     var existingActor = state.get(indexOfActor);
     const existingPropertyTracks = existingActor.get('propertyTracks');
-    const newActorPropertyTracks = newActor.get('propertyTracks');
 
-    const mergedPropertyTracks = newActorPropertyTracks.map((value, name) => {
+    const mergedPropertyTracks = propertyTracks.map((value, name) => {
       var combinedTrack = existingPropertyTracks.get(name) || [];
       combinedTrack = combinedTrack.concat(value);
       return combinedTrack.sort(prop => prop.ms);
     });
 
-    existingActor = existingActor.set('propertyTracks', mergedPropertyTracks);
-
-    // TODO: Try to use a less explicit way to do this
-    existingActor = existingActor.set('end', Math.max(newActor.get('end'), ms));
+    existingActor = existingActor.merge({
+      propertyTracks: mergedPropertyTracks,
+      end: Math.max(0, ms)
+    });
 
     state = state.set(indexOfActor, existingActor);
   }
