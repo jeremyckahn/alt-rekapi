@@ -102,7 +102,7 @@ describe('Timeline', () => {
                 timeline.keyframe('actor-1', 0, { x: 0, y: 0 });
               });
 
-              it('adds a new keyframe', () => {
+              it('adds new keyframes', () => {
                 var actual = timeline.toJSON();
                 var expected = {
                   duration: 0,
@@ -168,7 +168,7 @@ describe('Timeline', () => {
                 timeline.keyframe('actor-1', 0, { x: 0, y: 0 }, { x: 'fakeEasing' });
               });
 
-              it('adds a new keyframe', () => {
+              it('adds new keyframes', () => {
                 var actual = timeline.toJSON();
                 var expected = {
                   duration: 0,
@@ -203,7 +203,7 @@ describe('Timeline', () => {
                 timeline.keyframe('actor-1', 0, { x: 0, y: 0 }, { x: 'fakeEasing', y: 'fakeEasing' });
               });
 
-              it('adds a new keyframe', () => {
+              it('adds new keyframes', () => {
                 var actual = timeline.toJSON();
                 var expected = {
                   duration: 0,
@@ -298,7 +298,7 @@ describe('Timeline', () => {
                 timeline.keyframe('actor-1', 0, { x: 0, y: 0 }, 'fakeEasing');
               });
 
-              it('adds a new keyframe', () => {
+              it('adds new keyframes', () => {
                 var actual = timeline.toJSON();
                 var expected = {
                   duration: 0,
