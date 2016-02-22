@@ -14,7 +14,7 @@ function addKeyframe (state, action) {
   const { id, ms } = action;
 
   const indexOfActor = state.findIndex(function (actor) {
-    return actor.id = id;
+    return actor.get('id') === id;
   });
 
   const propertyTracks = Map(action.props).map((value, name) => {
