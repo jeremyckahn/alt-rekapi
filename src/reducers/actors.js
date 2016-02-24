@@ -30,7 +30,7 @@ function addKeyframe (state, action) {
     }
 
     return [{
-      ms: action.ms,
+      ms,
       easing,
       name,
       value
@@ -41,7 +41,7 @@ function addKeyframe (state, action) {
     const newActor = Map({
       // FIXME: Implement and test start > 0 scenarios
       start: 0,
-      end: 0,
+      end: Math.max(0, ms),
       id,
       propertyTracks
     });
@@ -59,7 +59,7 @@ function addKeyframe (state, action) {
 
     existingActor = existingActor.merge({
       propertyTracks: mergedPropertyTracks,
-      end: Math.max(0, ms)
+      end: Math.max(existingActor.get('end'), ms)
     });
 
     state = state.set(indexOfActor, existingActor);

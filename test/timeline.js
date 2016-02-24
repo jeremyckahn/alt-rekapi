@@ -379,41 +379,81 @@ describe('Timeline', () => {
         });
 
         describe('non-empty keyframes', () => {
-          beforeEach(() => {
-            timeline
-              .keyframe('actor-1', 0, { x: 0 })
-              .keyframe('actor-1', 100, { x: 200 });
-          });
+          describe('keyframes made in order', () => {
+            beforeEach(() => {
+              timeline
+                .keyframe('actor-1', 0, { x: 0 })
+                .keyframe('actor-1', 100, { x: 200 });
+            });
 
-          describe('creates multiple keyframes in a single track', () => {
-            it('adds a new keyframe', () => {
-              var actual = timeline.toJSON();
-              var expected = {
-                duration: 100,
-                actors: [{
-                  id: 'actor-1',
-                  start: 0,
-                  end: 100,
-                  propertyTracks: {
-                    x: [{
-                      ms: 0,
-                      name: 'x',
-                      value: 0,
-                      easing: 'linear'
-                    }, {
-                      ms: 100,
-                      name: 'x',
-                      value: 200,
-                      easing: 'linear'
-                    }]
-                  }
-                }],
-                customCurves: {}
-              };
+            describe('creates multiple keyframes in a single track', () => {
+              it('adds new keyframes', () => {
+                var actual = timeline.toJSON();
+                var expected = {
+                  duration: 100,
+                  actors: [{
+                    id: 'actor-1',
+                    start: 0,
+                    end: 100,
+                    propertyTracks: {
+                      x: [{
+                        ms: 0,
+                        name: 'x',
+                        value: 0,
+                        easing: 'linear'
+                      }, {
+                        ms: 100,
+                        name: 'x',
+                        value: 200,
+                        easing: 'linear'
+                      }]
+                    }
+                  }],
+                  customCurves: {}
+                };
 
-              assert.deepEqual(actual, expected);
+                assert.deepEqual(actual, expected);
+              });
             });
           });
+
+          describe('keyframes made out of order', () => {
+            beforeEach(() => {
+              timeline
+                .keyframe('actor-1', 100, { x: 200 })
+                .keyframe('actor-1', 0, { x: 0 });
+            });
+
+            describe('keyframes are added and ordered internally', () => {
+              it('adds new keyframes', () => {
+                var actual = timeline.toJSON();
+                var expected = {
+                  duration: 100,
+                  actors: [{
+                    id: 'actor-1',
+                    start: 0,
+                    end: 100,
+                    propertyTracks: {
+                      x: [{
+                        ms: 0,
+                        name: 'x',
+                        value: 0,
+                        easing: 'linear'
+                      }, {
+                        ms: 100,
+                        name: 'x',
+                        value: 200,
+                        easing: 'linear'
+                      }]
+                    }
+                  }],
+                  customCurves: {}
+                };
+
+                assert.deepEqual(actual, expected);
+              });
+            });
+          })
         });
       });
 
