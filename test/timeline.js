@@ -377,9 +377,7 @@ describe('Timeline', () => {
             assert.deepEqual(actual, expected);
           });
         });
-      });
 
-      describe('multiple actors', () => {
         describe('non-empty keyframes', () => {
           beforeEach(() => {
             timeline
@@ -418,6 +416,8 @@ describe('Timeline', () => {
           });
         });
       });
+
+      describe('multiple actors', () => {});
     });
   });
 });
