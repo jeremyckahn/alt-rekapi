@@ -39,9 +39,8 @@ function addKeyframe (state, action) {
 
   if (indexOfActor === -1) {
     const newActor = Map({
-      // FIXME: Implement and test start > 0 scenarios
-      start: 0,
-      end: Math.max(0, ms),
+      start: ms,
+      end: ms,
       id,
       propertyTracks
     });
@@ -59,6 +58,7 @@ function addKeyframe (state, action) {
 
     existingActor = existingActor.merge({
       propertyTracks: mergedPropertyTracks,
+      start: Math.min(existingActor.get('start'), ms),
       end: Math.max(existingActor.get('end'), ms)
     });
 

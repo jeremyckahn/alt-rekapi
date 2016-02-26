@@ -45,24 +45,48 @@ describe('Timeline', () => {
     describe('single keyframes', () => {
       describe('single actor', () => {
         describe('empty keyframes', () => {
-          beforeEach(() => {
-            timeline.keyframe('actor-1', 0, {});
+          describe('starting from 0', () => {
+            beforeEach(() => {
+              timeline.keyframe('actor-1', 0, {});
+            });
+
+            it('adds a new keyframe', () => {
+              var actual = timeline.toJSON();
+              var expected = {
+                duration: 0,
+                actors: [{
+                  id: 'actor-1',
+                  start: 0,
+                  end: 0,
+                  propertyTracks: {}
+                }],
+                customCurves: {}
+              };
+
+              assert.deepEqual(actual, expected);
+            });
           });
 
-          it('adds a new keyframe', () => {
-            var actual = timeline.toJSON();
-            var expected = {
-              duration: 0,
-              actors: [{
-                id: 'actor-1',
-                start: 0,
-                end: 0,
-                propertyTracks: {}
-              }],
-              customCurves: {}
-            };
+          describe('starting later than 0', () => {
+            beforeEach(() => {
+              timeline.keyframe('actor-1', 100, {});
+            });
 
-            assert.deepEqual(actual, expected);
+            it('adds a new keyframe', () => {
+              var actual = timeline.toJSON();
+              var expected = {
+                duration: 100,
+                actors: [{
+                  id: 'actor-1',
+                  start: 100,
+                  end: 100,
+                  propertyTracks: {}
+                }],
+                customCurves: {}
+              };
+
+              assert.deepEqual(actual, expected);
+            });
           });
         });
 
