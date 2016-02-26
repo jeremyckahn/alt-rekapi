@@ -457,7 +457,62 @@ describe('Timeline', () => {
         });
       });
 
-      describe('multiple actors', () => {});
+      describe('multiple actors', () => {
+        describe('associating keyframes with correct actors', () => {
+          beforeEach(() => {
+            timeline
+              .keyframe('actor-1', 0, { x: 0 })
+              .keyframe('actor-2', 0, { y: 0 })
+              .keyframe('actor-1', 100, { x: 200 })
+              .keyframe('actor-2', 150, { y: 200 });
+          });
+
+          it('adds new keyframes', () => {
+            var actual = timeline.toJSON();
+            var expected = {
+              duration: 150,
+              actors: [{
+                id: 'actor-1',
+                start: 0,
+                end: 100,
+                propertyTracks: {
+                  x: [{
+                    ms: 0,
+                    name: 'x',
+                    value: 0,
+                    easing: 'linear'
+                  }, {
+                    ms: 100,
+                    name: 'x',
+                    value: 200,
+                    easing: 'linear'
+                  }]
+                }
+              }, {
+                id: 'actor-2',
+                start: 0,
+                end: 150,
+                propertyTracks: {
+                  y: [{
+                    ms: 0,
+                    name: 'y',
+                    value: 0,
+                    easing: 'linear'
+                  }, {
+                    ms: 150,
+                    name: 'y',
+                    value: 200,
+                    easing: 'linear'
+                  }]
+                }
+              }],
+              customCurves: {}
+            };
+
+            assert.deepEqual(actual, expected);
+          });
+        });
+      });
     });
   });
 });
