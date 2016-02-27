@@ -50,9 +50,14 @@ function addKeyframe (state, action) {
     var existingActor = state.get(indexOfActor);
     const existingPropertyTracks = existingActor.get('propertyTracks');
 
-    const mergedPropertyTracks = propertyTracks.map((value, name) => {
-      var combinedTrack = existingPropertyTracks.get(name) || [];
-      combinedTrack = combinedTrack.concat(value);
+    const mergedPropertyTracks = propertyTracks.map((propertyTrack, propertyName) => {
+      let existingTrack =
+        existingPropertyTracks.get(propertyName) || [];
+      let dedupedExistingTrack =
+        existingTrack.filter(trackProperty => trackProperty.ms !== ms);
+      let combinedTrack =
+        dedupedExistingTrack.concat(propertyTrack);
+
       return combinedTrack.sort(prop => prop.ms);
     });
 

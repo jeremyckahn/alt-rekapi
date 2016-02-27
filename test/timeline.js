@@ -352,6 +352,37 @@ describe('Timeline', () => {
               });
             });
           });
+
+          describe('duplicate keyframes', () => {
+            beforeEach(() => {
+              timeline
+                .keyframe('actor-1', 0, { x: 0 })
+                .keyframe('actor-1', 0, { x: 0 });
+            });
+
+            it('does not create redundant keyframes', () => {
+              var actual = timeline.toJSON();
+              var expected = {
+                duration: 0,
+                actors: [{
+                  id: 'actor-1',
+                  start: 0,
+                  end: 0,
+                  propertyTracks: {
+                    x: [{
+                      ms: 0,
+                      name: 'x',
+                      value: 0,
+                      easing: 'linear'
+                    }]
+                  }
+                }],
+                customCurves: {}
+              };
+
+              assert.deepEqual(actual, expected);
+            });
+          });
         });
       });
 
@@ -491,7 +522,7 @@ describe('Timeline', () => {
               .keyframe('actor-2', 150, { y: 200 });
           });
 
-          it('adds new keyframes', () => {
+          it('adds keyframes to correct actors', () => {
             var actual = timeline.toJSON();
             var expected = {
               duration: 150,
