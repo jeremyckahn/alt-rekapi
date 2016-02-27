@@ -383,6 +383,37 @@ describe('Timeline', () => {
               assert.deepEqual(actual, expected);
             });
           });
+
+          describe('updating keyframe', () => {
+            beforeEach(() => {
+              timeline
+                .keyframe('actor-1', 0, { x: 0 })
+                .keyframe('actor-1', 0, { x: 100 });
+            });
+
+            it('existing keyframe is updated', () => {
+              var actual = timeline.toJSON();
+              var expected = {
+                duration: 0,
+                actors: [{
+                  id: 'actor-1',
+                  start: 0,
+                  end: 0,
+                  propertyTracks: {
+                    x: [{
+                      ms: 0,
+                      name: 'x',
+                      value: 100,
+                      easing: 'linear'
+                    }]
+                  }
+                }],
+                customCurves: {}
+              };
+
+              assert.deepEqual(actual, expected);
+            });
+          });
         });
       });
 
