@@ -47,27 +47,32 @@ function addKeyframe (state, action) {
 
     state = state.push(newActor);
   } else {
-    let existingActor = state.get(indexOfActor);
+    const existingActor = state.get(indexOfActor);
     const existingPropertyTracks = existingActor.get('propertyTracks');
 
-    const mergedPropertyTracks = propertyTracks.map((propertyTrack, propertyName) => {
-      let existingTrack =
+    const concatenatedPropertyTracks = propertyTracks.map((propertyTrack, propertyName) => {
+      const existingTrack =
         existingPropertyTracks.get(propertyName) || [];
-      let dedupedExistingTrack =
+      const dedupedExistingTrack =
         existingTrack.filter(trackProperty => trackProperty.ms !== ms);
-      let combinedTrack =
+      const combinedTrack =
         dedupedExistingTrack.concat(propertyTrack);
 
       return combinedTrack.sort(prop => prop.ms);
     });
 
-    existingActor = existingActor.merge({
+    const mergedPropertyTracks = concatenatedPropertyTracks.merge(
+      existingPropertyTracks
+        .filter((_, name) => !concatenatedPropertyTracks.get(name))
+    );
+
+    const mergedActor = existingActor.merge({
       propertyTracks: mergedPropertyTracks,
       start: Math.min(existingActor.get('start'), ms),
       end: Math.max(existingActor.get('end'), ms)
     });
 
-    state = state.set(indexOfActor, existingActor);
+    state = state.set(indexOfActor, mergedActor);
   }
 
   return state;
