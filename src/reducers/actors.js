@@ -19,7 +19,7 @@ function addKeyframe (state, action) {
 
   const propertyTracks = Map(action.props).map((value, name) => {
     const actionEasing = action.easing;
-    var easing;
+    let easing;
 
     if (typeof actionEasing === 'undefined') {
       easing = DEFAULT_EASING;
@@ -47,7 +47,7 @@ function addKeyframe (state, action) {
 
     state = state.push(newActor);
   } else {
-    var existingActor = state.get(indexOfActor);
+    let existingActor = state.get(indexOfActor);
     const existingPropertyTracks = existingActor.get('propertyTracks');
 
     const mergedPropertyTracks = propertyTracks.map((propertyTrack, propertyName) => {
