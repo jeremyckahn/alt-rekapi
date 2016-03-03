@@ -108,7 +108,6 @@ describe('Timeline', () => {
                     propertyTracks: {
                       x: [{
                         ms: 0,
-                        name: 'x',
                         value: 0,
                         easing: 'linear'
                       }]
@@ -137,13 +136,11 @@ describe('Timeline', () => {
                     propertyTracks: {
                       x: [{
                         ms: 0,
-                        name: 'x',
                         value: 0,
                         easing: 'linear'
                       }],
                       y: [{
                         ms: 0,
-                        name: 'y',
                         value: 0,
                         easing: 'linear'
                       }]
@@ -174,7 +171,6 @@ describe('Timeline', () => {
                     propertyTracks: {
                       x: [{
                         ms: 0,
-                        name: 'x',
                         value: 0,
                         easing: 'fakeEasing'
                       }]
@@ -203,13 +199,11 @@ describe('Timeline', () => {
                     propertyTracks: {
                       x: [{
                         ms: 0,
-                        name: 'x',
                         value: 0,
                         easing: 'fakeEasing'
                       }],
                       y: [{
                         ms: 0,
-                        name: 'y',
                         value: 0,
                         easing: 'linear'
                       }]
@@ -238,13 +232,11 @@ describe('Timeline', () => {
                     propertyTracks: {
                       x: [{
                         ms: 0,
-                        name: 'x',
                         value: 0,
                         easing: 'fakeEasing'
                       }],
                       y: [{
                         ms: 0,
-                        name: 'y',
                         value: 0,
                         easing: 'fakeEasing'
                       }]
@@ -273,7 +265,6 @@ describe('Timeline', () => {
                     propertyTracks: {
                       x: [{
                         ms: 0,
-                        name: 'x',
                         value: 0,
                         easing: 'fakeEasing'
                       }]
@@ -304,7 +295,6 @@ describe('Timeline', () => {
                     propertyTracks: {
                       x: [{
                         ms: 0,
-                        name: 'x',
                         value: 0,
                         easing: 'fakeEasing'
                       }]
@@ -333,13 +323,11 @@ describe('Timeline', () => {
                     propertyTracks: {
                       x: [{
                         ms: 0,
-                        name: 'x',
                         value: 0,
                         easing: 'fakeEasing'
                       }],
                       y: [{
                         ms: 0,
-                        name: 'y',
                         value: 0,
                         easing: 'fakeEasing'
                       }]
@@ -371,7 +359,6 @@ describe('Timeline', () => {
                   propertyTracks: {
                     x: [{
                       ms: 0,
-                      name: 'x',
                       value: 0,
                       easing: 'linear'
                     }]
@@ -402,7 +389,6 @@ describe('Timeline', () => {
                   propertyTracks: {
                     x: [{
                       ms: 0,
-                      name: 'x',
                       value: 100,
                       easing: 'linear'
                     }]
@@ -484,12 +470,10 @@ describe('Timeline', () => {
                     propertyTracks: {
                       x: [{
                         ms: 0,
-                        name: 'x',
                         value: 0,
                         easing: 'linear'
                       }, {
                         ms: 100,
-                        name: 'x',
                         value: 200,
                         easing: 'linear'
                       }]
@@ -522,12 +506,10 @@ describe('Timeline', () => {
                     propertyTracks: {
                       x: [{
                         ms: 0,
-                        name: 'x',
                         value: 0,
                         easing: 'linear'
                       }, {
                         ms: 100,
-                        name: 'x',
                         value: 200,
                         easing: 'linear'
                       }]
@@ -560,13 +542,11 @@ describe('Timeline', () => {
                 propertyTracks: {
                   x: [{
                     ms: 0,
-                    name: 'x',
                     value: 100,
                     easing: 'linear'
                   }],
                   y: [{
                     ms: 0,
-                    name: 'y',
                     value: 10,
                     easing: 'linear'
                   }]
@@ -601,12 +581,10 @@ describe('Timeline', () => {
                 propertyTracks: {
                   x: [{
                     ms: 0,
-                    name: 'x',
                     value: 0,
                     easing: 'linear'
                   }, {
                     ms: 100,
-                    name: 'x',
                     value: 200,
                     easing: 'linear'
                   }]
@@ -618,12 +596,10 @@ describe('Timeline', () => {
                 propertyTracks: {
                   y: [{
                     ms: 0,
-                    name: 'y',
                     value: 0,
                     easing: 'linear'
                   }, {
                     ms: 150,
-                    name: 'y',
                     value: 200,
                     easing: 'linear'
                   }]

@@ -32,7 +32,6 @@ function addKeyframe (state, action) {
     return [{
       ms,
       easing,
-      name,
       value
     }];
   });
