@@ -49,13 +49,11 @@ function addKeyframe (state, action) {
     const existingActor = state.get(indexOfActor);
     const existingPropertyTracks = existingActor.get('propertyTracks');
 
-    const concatenatedPropertyTracks = propertyTracks.map((propertyTrack, propertyName) => {
-      const existingTrack =
-        existingPropertyTracks.get(propertyName) || [];
+    const concatenatedPropertyTracks = propertyTracks.map((track, name) => {
+      const existingTrack = existingPropertyTracks.get(name) || [];
       const dedupedExistingTrack =
         existingTrack.filter(trackProperty => trackProperty.ms !== ms);
-      const combinedTrack =
-        dedupedExistingTrack.concat(propertyTrack);
+      const combinedTrack = dedupedExistingTrack.concat(track);
 
       return combinedTrack.sort(prop => prop.ms);
     });
