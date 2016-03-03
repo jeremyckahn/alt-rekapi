@@ -52,7 +52,7 @@ function addKeyframe (state, action) {
     const concatenatedPropertyTracks = propertyTracks.map((track, name) => {
       const existingTrack = existingPropertyTracks.get(name) || [];
       const dedupedExistingTrack =
-        existingTrack.filter(trackProperty => trackProperty.ms !== ms);
+        existingTrack.filter(property => property.ms !== ms);
       const combinedTrack = dedupedExistingTrack.concat(track);
 
       return combinedTrack.sort(prop => prop.ms);
