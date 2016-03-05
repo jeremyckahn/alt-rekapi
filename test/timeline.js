@@ -614,4 +614,28 @@ describe('Timeline', () => {
       });
     });
   });
+
+  describe('#remove', () => {
+    beforeEach(() => {
+      timeline
+        .keyframe('actor-1', 0, { x: 0 })
+        .keyframe('actor-1', 100, { x: 100 });
+    });
+
+    describe('actor', () => {});
+
+    describe('actor + ms', () => {});
+
+    describe('actor + ms + props', () => {});
+
+    describe('actor + props', () => {
+
+      it('throws an error', () => {
+        assert.throws(
+          () => timeline.remove('actor-1', undefined, 'x'),
+          TypeError
+        );
+      });
+    });
+  });
 });

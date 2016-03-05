@@ -37,11 +37,15 @@ export class Timeline {
   /**
    * @param {string} actor The ID of an actor
    * @param {number} [ms] The millisecond in the timeline at which to remove
-   * keyframes properties
+   * keyframe properties
    * @param {...string} [props] If provided, only remove the keyframe
    * properties specified.  If omitted, all keyframe properties matched by
    * `actor` and `ms` will be removed.  If `props` are provided but `ms` is
    * not, a `TypeError` is thrown.
    */
-  remove (actor, ms = null, ...props) {}
+  remove (actor, ms = null, ...props) {
+    if (ms === null && props) {
+      throw new TypeError;
+    }
+  }
 }
