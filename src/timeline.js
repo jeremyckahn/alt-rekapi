@@ -28,6 +28,7 @@ export class Timeline {
    * @param {Object} props The properties of the keyframe
    * @param {Object} [easing] Optional easing curves to apply to props of the
    * corresponding key
+   * @chainable
    */
   keyframe (actor, ms, props, easing = {}) {
     this.store.dispatch(addKeyframe(actor, ms, props, easing));
@@ -42,6 +43,7 @@ export class Timeline {
    * properties specified.  If omitted, all keyframe properties matched by
    * `actor` and `ms` will be removed.  If `props` are provided but `ms` is
    * not, a `TypeError` is thrown.
+   * @chainable
    */
   remove (actor, ms = null, ...props) {
     if (ms === null) {
@@ -55,5 +57,7 @@ export class Timeline {
 
       this.store.dispatch(removeActor(actor, otherActors));
     }
+
+    return this;
   }
 }
