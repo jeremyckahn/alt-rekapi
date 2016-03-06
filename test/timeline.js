@@ -623,17 +623,52 @@ describe('Timeline', () => {
     });
 
     describe('actor', () => {
-      it('removes an entire actor', () => {
-        timeline.remove('actor-1');
+      describe('single actor', () => {
+        it('removes an entire actor', () => {
+          timeline.remove('actor-1');
 
-        var actual = timeline.toJSON();
-        var expected = {
-          duration: 0,
-          actors: [],
-          customCurves: {}
-        };
+          var actual = timeline.toJSON();
+          var expected = {
+            duration: 0,
+            actors: [],
+            customCurves: {}
+          };
 
-        assert.deepEqual(actual, expected);
+          assert.deepEqual(actual, expected);
+        });
+      });
+
+      describe('multiple actors', () => {
+        it('does not affect the unremoved actor', () => {
+          timeline
+            .keyframe('actor-2', 0, { y: 0 })
+            .keyframe('actor-2', 50, { y: 50 });
+          timeline.remove('actor-1');
+
+          var actual = timeline.toJSON();
+          var expected = {
+            duration: 50,
+            actors: [{
+              id: 'actor-2',
+              start: 0,
+              end: 50,
+              propertyTracks: {
+                y: [{
+                  ms: 0,
+                  value: 0,
+                  easing: 'linear'
+                }, {
+                  ms: 50,
+                  value: 50,
+                  easing: 'linear'
+                }]
+              }
+            }],
+            customCurves: {}
+          };
+
+          assert.deepEqual(actual, expected);
+        });
       });
     });
 

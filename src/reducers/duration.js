@@ -17,11 +17,9 @@ export default function (state=initialState, action) {
     case REMOVE_ACTOR:
       const { otherActors } = action;
       const otherActorEnds = otherActors.toJS().map(
-        otherActor => otherActor.get('end')
+        otherActor => otherActor.end
       );
 
-      // FIXME: Add test to confirm that remaining actors are accounted for
-      // properly (i.e., this operation should return something greater than 0)
       state = otherActorEnds.length ?
         Math.max.apply(Math, otherActorEnds) :
         0;
