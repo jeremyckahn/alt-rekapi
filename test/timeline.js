@@ -622,14 +622,26 @@ describe('Timeline', () => {
         .keyframe('actor-1', 100, { x: 100 });
     });
 
-    describe('actor', () => {});
+    describe('actor', () => {
+      it('removes an entire actor', () => {
+        timeline.remove('actor-1');
+
+        var actual = timeline.toJSON();
+        var expected = {
+          duration: 0,
+          actors: [],
+          customCurves: {}
+        };
+
+        assert.deepEqual(actual, expected);
+      });
+    });
 
     describe('actor + ms', () => {});
 
     describe('actor + ms + props', () => {});
 
     describe('actor + props', () => {
-
       it('throws an error', () => {
         assert.throws(
           () => timeline.remove('actor-1', undefined, 'x'),

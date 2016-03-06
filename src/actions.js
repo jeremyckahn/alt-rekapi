@@ -1,4 +1,4 @@
-import { ADD_KEYFRAME } from './reducers/actors';
+import { ADD_KEYFRAME, REMOVE_ACTOR } from './reducers/actors';
 
 /**
  * @param {string} actor
@@ -13,5 +13,17 @@ export function addKeyframe (actor, ms, props, easing) {
     ms,
     props,
     easing
+  };
+}
+
+/**
+ * @param {string} actor
+ * @param {List.<Map>} otherActors
+ */
+export function removeActor (actor, otherActors) {
+  return {
+    type: REMOVE_ACTOR,
+    id: actor,
+    otherActors
   };
 }

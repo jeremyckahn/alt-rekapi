@@ -1,7 +1,7 @@
 import { createStore } from 'redux';
 import { Map } from 'immutable';
 import reducer from './reducers/main';
-import { addKeyframe } from './actions';
+import { addKeyframe, removeActor } from './actions';
 
 export class Timeline {
   constructor () {
@@ -44,8 +44,16 @@ export class Timeline {
    * not, a `TypeError` is thrown.
    */
   remove (actor, ms = null, ...props) {
-    if (ms === null && props) {
-      throw new TypeError;
+    if (ms === null) {
+      if (props.length > 0) {
+        throw new TypeError;
+      }
+
+      const otherActors = this.getState().actors.filterNot(
+        actorObj => actorObj.get('id') === actor
+      );
+
+      this.store.dispatch(removeActor(actor, otherActors));
     }
   }
 }

@@ -1,6 +1,7 @@
 import { Map, fromJS } from 'immutable';
 
 export const ADD_KEYFRAME = 'ADD_KEYFRAME';
+export const REMOVE_ACTOR = 'REMOVE_ACTOR';
 export const DEFAULT_EASING = 'linear';
 
 export const initialState = fromJS([]);
@@ -80,12 +81,28 @@ function addKeyframe (state, action) {
  * @param {Object} action
  * @return {Object}
  */
+function removeActor (state, action) {
+  const { id } = action;
+  // FIXME: Add a test for scenario where actor is not found
+  const [indexOfActor] = state.findEntry(actor => actor.get('id') === id);
+  state = state.delete(indexOfActor);
+  return state;
+}
+
+/**
+ * @param {Object} state
+ * @param {Object} action
+ * @return {Object}
+ */
 export default function (state=initialState, action) {
   const { type } = action;
 
   switch (type) {
     case ADD_KEYFRAME:
       state = addKeyframe(state, action);
+      break;
+    case REMOVE_ACTOR:
+      state = removeActor(state, action);
       break;
   }
 
