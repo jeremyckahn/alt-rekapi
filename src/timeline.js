@@ -53,7 +53,12 @@ export class Timeline {
         throw new TypeError;
       }
 
-      this.store.dispatch(removeActor(actor, allActors));
+      const actorWasFound =
+        allActors.findEntry(actorObj => actorObj.get('id') === actor);
+
+      if (actorWasFound) {
+        this.store.dispatch(removeActor(actor, allActors));
+      }
     }
 
     return this;
