@@ -636,6 +636,34 @@ describe('Timeline', () => {
 
           assert.deepEqual(actual, expected);
         });
+
+        it('does nothing if requested actor is not found', () => {
+          timeline.remove('actor-9');
+
+          var actual = timeline.toJSON();
+          var expected = {
+            duration: 100,
+            actors: [{
+              id: 'actor-1',
+              start: 0,
+              end: 100,
+              propertyTracks: {
+                x: [{
+                  ms: 0,
+                  value: 0,
+                  easing: 'linear'
+                }, {
+                  ms: 100,
+                  value: 100,
+                  easing: 'linear'
+                }]
+              }
+            }],
+            customCurves: {}
+          };
+
+          assert.deepEqual(actual, expected);
+        });
       });
 
       describe('multiple actors', () => {

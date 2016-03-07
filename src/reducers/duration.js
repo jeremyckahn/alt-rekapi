@@ -15,14 +15,24 @@ export default function (state=initialState, action) {
       break;
 
     case REMOVE_ACTOR:
-      const { otherActors } = action;
-      const otherActorEnds = otherActors.toJS().map(
-        otherActor => otherActor.end
-      );
+      const { id, allActors } = action;
 
-      state = otherActorEnds.length ?
-        Math.max.apply(Math, otherActorEnds) :
-        0;
+      const actorWasFound =
+        allActors.findEntry(actor => actor.get('id') === id);
+
+      if (actorWasFound) {
+        const otherActorEnds = allActors
+          .filterNot(
+            actorObj => actorObj.get('id') === id
+          ).map(
+            otherActor => otherActor.get('end')
+          ).toArray();
+
+        state = otherActorEnds.length ?
+          Math.max.apply(Math, otherActorEnds) :
+          0;
+      }
+
 
       break;
   }

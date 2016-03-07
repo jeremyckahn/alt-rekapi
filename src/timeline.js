@@ -46,16 +46,14 @@ export class Timeline {
    * @chainable
    */
   remove (actor, ms = null, ...props) {
+    const allActors = this.getState().actors;
+
     if (ms === null) {
       if (props.length > 0) {
         throw new TypeError;
       }
 
-      const otherActors = this.getState().actors.filterNot(
-        actorObj => actorObj.get('id') === actor
-      );
-
-      this.store.dispatch(removeActor(actor, otherActors));
+      this.store.dispatch(removeActor(actor, allActors));
     }
 
     return this;

@@ -18,12 +18,12 @@ export function addKeyframe (actor, ms, props, easing) {
 
 /**
  * @param {string} actor
- * @param {List.<Map>} otherActors
+ * @param {List.<Map>} allActors
  */
-export function removeActor (actor, otherActors) {
+export function removeActor (actor, allActors) {
   return {
     type: REMOVE_ACTOR,
     id: actor,
-    otherActors
+    allActors
   };
 }

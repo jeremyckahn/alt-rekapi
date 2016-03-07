@@ -83,9 +83,13 @@ function addKeyframe (state, action) {
  */
 function removeActor (state, action) {
   const { id } = action;
-  // FIXME: Add a test for scenario where actor is not found
-  const [indexOfActor] = state.findEntry(actor => actor.get('id') === id);
-  state = state.delete(indexOfActor);
+  const [indexOfActor] =
+    state.findEntry(actor => actor.get('id') === id) || [-1];
+
+  if (indexOfActor > -1) {
+    state = state.delete(indexOfActor);
+  }
+
   return state;
 }
 
