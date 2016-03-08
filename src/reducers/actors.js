@@ -2,6 +2,7 @@ import { Map, fromJS } from 'immutable';
 
 export const ADD_KEYFRAME = 'ADD_KEYFRAME';
 export const REMOVE_ACTOR = 'REMOVE_ACTOR';
+export const REMOVE_ACTOR_KEYFRAMES = 'REMOVE_ACTOR_KEYFRAMES';
 export const DEFAULT_EASING = 'linear';
 
 export const initialState = fromJS([]);
@@ -95,6 +96,43 @@ function removeActor (state, action) {
  * @param {Object} action
  * @return {Object}
  */
+function removeActorKeyframes (state, action) {
+  const { id, ms, props } = action;
+
+  let [indexOfActor, actor] = state.findEntry(actor => actor.get('id') === id);
+  let propertyTracks = actor.get('propertyTracks');
+  const propsToRemove = propertyTracks.keySeq();
+
+  propsToRemove.forEach(prop => {
+    const propertyTrack = propertyTracks.get(prop);
+    const foundProperty = propertyTrack.find(property => property.ms === ms);
+
+    if (!foundProperty) {
+      return;
+    }
+
+    const propertyIndex = propertyTrack.indexOf(foundProperty);
+    propertyTrack.splice(propertyIndex, 1);
+    propertyTracks.set(prop, propertyTrack);
+  });
+
+  const keyframeTimes = [];
+  propertyTracks.forEach((propertyTrack) => {
+    propertyTrack.forEach(property => keyframeTimes.push(property.ms));
+  });
+
+  actor = actor.set('propertyTracks', propertyTracks);
+  actor = actor.set('start', Math.min.apply(Math, keyframeTimes));
+  state = state.set(indexOfActor, actor);
+
+  return state;
+}
+
+/**
+ * @param {Object} state
+ * @param {Object} action
+ * @return {Object}
+ */
 export default function (state=initialState, action) {
   const { type } = action;
 
@@ -104,6 +142,9 @@ export default function (state=initialState, action) {
       break;
     case REMOVE_ACTOR:
       state = removeActor(state, action);
+      break;
+    case REMOVE_ACTOR_KEYFRAMES:
+      state = removeActorKeyframes(state, action);
       break;
   }
 

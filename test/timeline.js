@@ -700,7 +700,31 @@ describe('Timeline', () => {
       });
     });
 
-    describe('actor + ms', () => {});
+    describe('actor + ms', () => {
+      it('removes the first keyframe', () => {
+        timeline.remove('actor-1', 0);
+
+        var actual = timeline.toJSON();
+        var expected = {
+          duration: 100,
+          actors: [{
+            id: 'actor-1',
+            start: 100,
+            end: 100,
+            propertyTracks: {
+              x: [{
+                ms: 100,
+                value: 100,
+                easing: 'linear'
+              }]
+            }
+          }],
+          customCurves: {}
+        };
+
+        assert.deepEqual(actual, expected);
+      });
+    });
 
     describe('actor + ms + props', () => {});
 

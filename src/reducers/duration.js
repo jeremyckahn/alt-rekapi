@@ -1,4 +1,7 @@
-import { ADD_KEYFRAME, REMOVE_ACTOR } from './actors';
+import {
+  ADD_KEYFRAME,
+  REMOVE_ACTOR
+} from './actors';
 export const initialState = 0;
 
 export default function (state=initialState, action) {
@@ -27,7 +30,6 @@ export default function (state=initialState, action) {
       state = otherActorEnds.length ?
         Math.max.apply(Math, otherActorEnds) :
         0;
-
 
       break;
   }

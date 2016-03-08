@@ -1,7 +1,11 @@
 import { createStore } from 'redux';
 import { Map } from 'immutable';
 import reducer from './reducers/main';
-import { addKeyframe, removeActor } from './actions';
+import {
+  addKeyframe,
+  removeActor,
+  removeActorKeyframes
+} from './actions';
 
 export class Timeline {
   constructor () {
@@ -47,18 +51,21 @@ export class Timeline {
    */
   remove (actor, ms = null, ...props) {
     const allActors = this.getState().actors;
+    const actorWasFound =
+      allActors.findEntry(actorObj => actorObj.get('id') === actor);
+
+    if (!actorWasFound) {
+      return this;
+    }
 
     if (ms === null) {
       if (props.length > 0) {
         throw new TypeError;
       }
 
-      const actorWasFound =
-        allActors.findEntry(actorObj => actorObj.get('id') === actor);
-
-      if (actorWasFound) {
-        this.store.dispatch(removeActor(actor, allActors));
-      }
+      this.store.dispatch(removeActor(actor, allActors));
+    } else {
+      this.store.dispatch(removeActorKeyframes(actor, ms, props));
     }
 
     return this;
