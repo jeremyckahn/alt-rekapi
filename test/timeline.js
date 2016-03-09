@@ -19,7 +19,6 @@ describe('Timeline', () => {
     it('returns data', () => {
       var actual = Immutable.Map(timeline.getState()).toJSON();
       var expected = {
-        duration: 0,
         actors: [],
         customCurves: {}
       };
@@ -32,7 +31,6 @@ describe('Timeline', () => {
     it('returns data', () => {
       var actual = timeline.toJSON()
       var expected = {
-        duration: 0,
         actors: [],
         customCurves: {}
       };
@@ -53,7 +51,6 @@ describe('Timeline', () => {
             it('adds a new keyframe', () => {
               var actual = timeline.toJSON();
               var expected = {
-                duration: 0,
                 actors: [{
                   id: 'actor-1',
                   start: 0,
@@ -75,7 +72,6 @@ describe('Timeline', () => {
             it('adds a new keyframe', () => {
               var actual = timeline.toJSON();
               var expected = {
-                duration: 100,
                 actors: [{
                   id: 'actor-1',
                   start: 100,
@@ -100,7 +96,6 @@ describe('Timeline', () => {
               it('adds a new keyframe', () => {
                 var actual = timeline.toJSON();
                 var expected = {
-                  duration: 0,
                   actors: [{
                     id: 'actor-1',
                     start: 0,
@@ -128,7 +123,6 @@ describe('Timeline', () => {
               it('adds new keyframes', () => {
                 var actual = timeline.toJSON();
                 var expected = {
-                  duration: 0,
                   actors: [{
                     id: 'actor-1',
                     start: 0,
@@ -163,7 +157,6 @@ describe('Timeline', () => {
               it('adds a new keyframe', () => {
                 var actual = timeline.toJSON();
                 var expected = {
-                  duration: 0,
                   actors: [{
                     id: 'actor-1',
                     start: 0,
@@ -191,7 +184,6 @@ describe('Timeline', () => {
               it('adds new keyframes', () => {
                 var actual = timeline.toJSON();
                 var expected = {
-                  duration: 0,
                   actors: [{
                     id: 'actor-1',
                     start: 0,
@@ -224,7 +216,6 @@ describe('Timeline', () => {
               it('adds new keyframes', () => {
                 var actual = timeline.toJSON();
                 var expected = {
-                  duration: 0,
                   actors: [{
                     id: 'actor-1',
                     start: 0,
@@ -257,7 +248,6 @@ describe('Timeline', () => {
               it('adds a new keyframe', () => {
                 var actual = timeline.toJSON();
                 var expected = {
-                  duration: 0,
                   actors: [{
                     id: 'actor-1',
                     start: 0,
@@ -287,7 +277,6 @@ describe('Timeline', () => {
               it('adds a new keyframe', () => {
                 var actual = timeline.toJSON();
                 var expected = {
-                  duration: 0,
                   actors: [{
                     id: 'actor-1',
                     start: 0,
@@ -315,7 +304,6 @@ describe('Timeline', () => {
               it('adds new keyframes', () => {
                 var actual = timeline.toJSON();
                 var expected = {
-                  duration: 0,
                   actors: [{
                     id: 'actor-1',
                     start: 0,
@@ -351,7 +339,6 @@ describe('Timeline', () => {
             it('does not create redundant keyframes', () => {
               var actual = timeline.toJSON();
               var expected = {
-                duration: 0,
                 actors: [{
                   id: 'actor-1',
                   start: 0,
@@ -381,7 +368,6 @@ describe('Timeline', () => {
             it('existing keyframe is updated', () => {
               var actual = timeline.toJSON();
               var expected = {
-                duration: 0,
                 actors: [{
                   id: 'actor-1',
                   start: 0,
@@ -413,7 +399,6 @@ describe('Timeline', () => {
           it('adds new keyframes', () => {
             var actual = timeline.toJSON();
             var expected = {
-              duration: 0,
               actors: [{
                 id: 'actor-1',
                 start: 0,
@@ -436,20 +421,6 @@ describe('Timeline', () => {
 
     describe('multiple keyframes', () => {
       describe('single actor', () => {
-        describe('empty keyframes', () => {
-          beforeEach(() => {
-            timeline.keyframe('actor-1', 0, {});
-          });
-
-          it('expands the timeline duration', () => {
-            timeline.keyframe('actor-1', 100, {});
-            var actual = timeline.toJSON().duration;
-            var expected = 100;
-
-            assert.deepEqual(actual, expected);
-          });
-        });
-
         describe('non-empty keyframes', () => {
           describe('keyframes made in order', () => {
             beforeEach(() => {
@@ -462,7 +433,6 @@ describe('Timeline', () => {
               it('adds new keyframes', () => {
                 var actual = timeline.toJSON();
                 var expected = {
-                  duration: 100,
                   actors: [{
                     id: 'actor-1',
                     start: 0,
@@ -498,7 +468,6 @@ describe('Timeline', () => {
               it('adds new keyframes', () => {
                 var actual = timeline.toJSON();
                 var expected = {
-                  duration: 100,
                   actors: [{
                     id: 'actor-1',
                     start: 0,
@@ -534,7 +503,6 @@ describe('Timeline', () => {
           it('existing keyframe is partially updated', () => {
             var actual = timeline.toJSON();
             var expected = {
-              duration: 0,
               actors: [{
                 id: 'actor-1',
                 start: 0,
@@ -573,7 +541,6 @@ describe('Timeline', () => {
           it('adds keyframes to correct actors', () => {
             var actual = timeline.toJSON();
             var expected = {
-              duration: 150,
               actors: [{
                 id: 'actor-1',
                 start: 0,
@@ -629,7 +596,6 @@ describe('Timeline', () => {
 
           var actual = timeline.toJSON();
           var expected = {
-            duration: 0,
             actors: [],
             customCurves: {}
           };
@@ -642,7 +608,6 @@ describe('Timeline', () => {
 
           var actual = timeline.toJSON();
           var expected = {
-            duration: 100,
             actors: [{
               id: 'actor-1',
               start: 0,
@@ -675,7 +640,6 @@ describe('Timeline', () => {
 
           var actual = timeline.toJSON();
           var expected = {
-            duration: 50,
             actors: [{
               id: 'actor-2',
               start: 0,
@@ -706,7 +670,6 @@ describe('Timeline', () => {
 
         var actual = timeline.toJSON();
         var expected = {
-          duration: 100,
           actors: [{
             id: 'actor-1',
             start: 100,
