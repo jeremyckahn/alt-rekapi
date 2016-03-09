@@ -99,7 +99,8 @@ function removeActor (state, action) {
 function removeActorKeyframes (state, action) {
   const { id, ms, props } = action;
 
-  let [indexOfActor, actor] = state.findEntry(actor => actor.get('id') === id);
+  const [indexOfActor, actor] =
+    state.findEntry(actor => actor.get('id') === id);
   let propertyTracks = actor.get('propertyTracks');
   const propsToRemove = propertyTracks.keySeq();
 
@@ -121,9 +122,12 @@ function removeActorKeyframes (state, action) {
     propertyTrack.forEach(property => keyframeTimes.push(property.ms));
   });
 
-  actor = actor.set('propertyTracks', propertyTracks);
-  actor = actor.set('start', Math.min.apply(Math, keyframeTimes));
-  state = state.set(indexOfActor, actor);
+  state = state.set(indexOfActor, actor.merge({
+      propertyTracks,
+      start: Math.min.apply(Math, keyframeTimes),
+      end: Math.max.apply(Math, keyframeTimes)
+    })
+  );
 
   return state;
 }

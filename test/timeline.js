@@ -687,6 +687,29 @@ describe('Timeline', () => {
 
         assert.deepEqual(actual, expected);
       });
+
+      it('removes the last keyframe', () => {
+        timeline.remove('actor-1', 100);
+
+        var actual = timeline.toJSON();
+        var expected = {
+          actors: [{
+            id: 'actor-1',
+            start: 0,
+            end: 0,
+            propertyTracks: {
+              x: [{
+                ms: 0,
+                value: 0,
+                easing: 'linear'
+              }]
+            }
+          }],
+          customCurves: {}
+        };
+
+        assert.deepEqual(actual, expected);
+      });
     });
 
     describe('actor + ms + props', () => {});
