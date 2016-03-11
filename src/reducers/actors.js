@@ -102,7 +102,7 @@ function removeActorKeyframes (state, action) {
   const [indexOfActor, actor] =
     state.findEntry(actor => actor.get('id') === id);
   let propertyTracks = actor.get('propertyTracks');
-  const propsToRemove = propertyTracks.keySeq();
+  const propsToRemove = props.length ? props : propertyTracks.keySeq();
 
   propsToRemove.forEach(prop => {
     const propertyTrack = propertyTracks.get(prop);
@@ -121,6 +121,10 @@ function removeActorKeyframes (state, action) {
   propertyTracks.forEach((propertyTrack) => {
     propertyTrack.forEach(property => keyframeTimes.push(property.ms));
   });
+
+  // Remove any empty tracks
+  propertyTracks =
+    propertyTracks.filter(propertyTrack => propertyTrack.length);
 
   state = state.set(indexOfActor, actor.merge({
       propertyTracks,

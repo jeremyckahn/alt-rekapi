@@ -741,7 +741,40 @@ describe('Timeline', () => {
       });
     });
 
-    describe('actor + ms + props', () => {});
+    describe('actor + ms + props', () => {
+      beforeEach(() => {
+        timeline.keyframe('actor-1', 100, { y: 100 });
+      });
+
+      describe('removing only specified properties', () => {
+        it('removes specified properties and leaves others alone', () => {
+          timeline.remove('actor-1', 100, 'y');
+
+          var actual = timeline.toJSON();
+          var expected = {
+            actors: [{
+              id: 'actor-1',
+              start: 0,
+              end: 100,
+              propertyTracks: {
+                x: [{
+                  ms: 0,
+                  value: 0,
+                  easing: 'linear'
+                }, {
+                  ms: 100,
+                  value: 100,
+                  easing: 'linear'
+                }]
+              }
+            }],
+            customCurves: {}
+          };
+
+          assert.deepEqual(actual, expected);
+        });
+      });
+    });
 
     describe('actor + props', () => {
       it('throws an error', () => {
