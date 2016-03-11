@@ -106,6 +106,11 @@ function removeActorKeyframes (state, action) {
 
   propsToRemove.forEach(prop => {
     const propertyTrack = propertyTracks.get(prop);
+
+    if (!propertyTrack) {
+      return;
+    }
+
     const foundProperty = propertyTrack.find(property => property.ms === ms);
 
     if (!foundProperty) {

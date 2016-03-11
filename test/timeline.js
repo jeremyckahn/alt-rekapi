@@ -773,6 +773,38 @@ describe('Timeline', () => {
 
           assert.deepEqual(actual, expected);
         });
+
+        it('does nothing if nonexistent property is targeted', () => {
+          timeline.remove('actor-1', 100, 'z');
+
+          var actual = timeline.toJSON();
+          var expected = {
+            actors: [{
+              id: 'actor-1',
+              start: 0,
+              end: 100,
+              propertyTracks: {
+                x: [{
+                  ms: 0,
+                  value: 0,
+                  easing: 'linear'
+                }, {
+                  ms: 100,
+                  value: 100,
+                  easing: 'linear'
+                }],
+                y: [{
+                  ms: 100,
+                  value: 100,
+                  easing: 'linear'
+                }]
+              }
+            }],
+            customCurves: {}
+          };
+
+          assert.deepEqual(actual, expected);
+        });
       });
     });
 
