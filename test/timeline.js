@@ -2,21 +2,21 @@ var Immutable = require('immutable');
 var Timeline = require('../tmp/timeline').Timeline;
 var assert = require('assert');
 
-describe('Timeline', () => {
+describe('Timeline', function () {
   var timeline;
 
   beforeEach(() => {
     timeline = new Timeline();
   });
 
-  it('initializes', () => {
+  it('initializes', function () {
     var actual = timeline instanceof Timeline;
     var expected = true;
     assert.equal(actual, expected);
   });
 
-  describe('#getState', () => {
-    it('returns data', () => {
+  describe('#getState', function () {
+    it('returns data', function () {
       var actual = Immutable.Map(timeline.getState()).toJSON();
       var expected = {
         actors: [],
@@ -27,8 +27,8 @@ describe('Timeline', () => {
     });
   });
 
-  describe('#toJSON', () => {
-    it('returns data', () => {
+  describe('#toJSON', function () {
+    it('returns data', function () {
       var actual = timeline.toJSON()
       var expected = {
         actors: [],
@@ -39,16 +39,16 @@ describe('Timeline', () => {
     });
   });
 
-  describe('#keyframe', () => {
-    describe('single keyframes', () => {
-      describe('single actor', () => {
-        describe('empty keyframes', () => {
-          describe('starting from 0', () => {
+  describe('#keyframe', function () {
+    describe('single keyframes', function () {
+      describe('single actor', function () {
+        describe('empty keyframes', function () {
+          describe('starting from 0', function () {
             beforeEach(() => {
               timeline.keyframe('actor-1', 0, {});
             });
 
-            it('adds a new keyframe', () => {
+            it('adds a new keyframe', function () {
               var actual = timeline.toJSON();
               var expected = {
                 actors: [{
@@ -64,12 +64,12 @@ describe('Timeline', () => {
             });
           });
 
-          describe('starting later than 0', () => {
+          describe('starting later than 0', function () {
             beforeEach(() => {
               timeline.keyframe('actor-1', 100, {});
             });
 
-            it('adds a new keyframe', () => {
+            it('adds a new keyframe', function () {
               var actual = timeline.toJSON();
               var expected = {
                 actors: [{
@@ -86,14 +86,14 @@ describe('Timeline', () => {
           });
         });
 
-        describe('non-empty keyframes', () => {
-          describe('undefined easing', () => {
-            describe('single property', () => {
+        describe('non-empty keyframes', function () {
+          describe('undefined easing', function () {
+            describe('single property', function () {
               beforeEach(() => {
                 timeline.keyframe('actor-1', 0, { x: 0 });
               });
 
-              it('adds a new keyframe', () => {
+              it('adds a new keyframe', function () {
                 var actual = timeline.toJSON();
                 var expected = {
                   actors: [{
@@ -115,12 +115,12 @@ describe('Timeline', () => {
               });
             });
 
-            describe('multiple properties', () => {
+            describe('multiple properties', function () {
               beforeEach(() => {
                 timeline.keyframe('actor-1', 0, { x: 0, y: 0 });
               });
 
-              it('adds new keyframes', () => {
+              it('adds new keyframes', function () {
                 var actual = timeline.toJSON();
                 var expected = {
                   actors: [{
@@ -148,13 +148,13 @@ describe('Timeline', () => {
             });
           });
 
-          describe('object easing', () => {
-            describe('single property, single easing', () => {
+          describe('object easing', function () {
+            describe('single property, single easing', function () {
               beforeEach(() => {
                 timeline.keyframe('actor-1', 0, { x: 0 }, { x: 'fakeEasing' });
               });
 
-              it('adds a new keyframe', () => {
+              it('adds a new keyframe', function () {
                 var actual = timeline.toJSON();
                 var expected = {
                   actors: [{
@@ -176,12 +176,12 @@ describe('Timeline', () => {
               });
             });
 
-            describe('multiple properties, single easing', () => {
+            describe('multiple properties, single easing', function () {
               beforeEach(() => {
                 timeline.keyframe('actor-1', 0, { x: 0, y: 0 }, { x: 'fakeEasing' });
               });
 
-              it('adds new keyframes', () => {
+              it('adds new keyframes', function () {
                 var actual = timeline.toJSON();
                 var expected = {
                   actors: [{
@@ -208,12 +208,12 @@ describe('Timeline', () => {
               });
             });
 
-            describe('multiple properties, multiple easings', () => {
+            describe('multiple properties, multiple easings', function () {
               beforeEach(() => {
                 timeline.keyframe('actor-1', 0, { x: 0, y: 0 }, { x: 'fakeEasing', y: 'fakeEasing' });
               });
 
-              it('adds new keyframes', () => {
+              it('adds new keyframes', function () {
                 var actual = timeline.toJSON();
                 var expected = {
                   actors: [{
@@ -240,12 +240,12 @@ describe('Timeline', () => {
               });
             });
 
-            describe('single property, multiple easings', () => {
+            describe('single property, multiple easings', function () {
               beforeEach(() => {
                 timeline.keyframe('actor-1', 0, { x: 0 }, { x: 'fakeEasing', y: 'fakeEasing' });
               });
 
-              it('adds a new keyframe', () => {
+              it('adds a new keyframe', function () {
                 var actual = timeline.toJSON();
                 var expected = {
                   actors: [{
@@ -268,13 +268,13 @@ describe('Timeline', () => {
             });
           });
 
-          describe('string easing', () => {
-            describe('single property, single easing', () => {
+          describe('string easing', function () {
+            describe('single property, single easing', function () {
               beforeEach(() => {
                 timeline.keyframe('actor-1', 0, { x: 0 }, 'fakeEasing');
               });
 
-              it('adds a new keyframe', () => {
+              it('adds a new keyframe', function () {
                 var actual = timeline.toJSON();
                 var expected = {
                   actors: [{
@@ -296,12 +296,12 @@ describe('Timeline', () => {
               });
             });
 
-            describe('multiple properties, single easing', () => {
+            describe('multiple properties, single easing', function () {
               beforeEach(() => {
                 timeline.keyframe('actor-1', 0, { x: 0, y: 0 }, 'fakeEasing');
               });
 
-              it('adds new keyframes', () => {
+              it('adds new keyframes', function () {
                 var actual = timeline.toJSON();
                 var expected = {
                   actors: [{
@@ -329,14 +329,14 @@ describe('Timeline', () => {
             });
           });
 
-          describe('duplicate keyframes', () => {
+          describe('duplicate keyframes', function () {
             beforeEach(() => {
               timeline
                 .keyframe('actor-1', 0, { x: 0 })
                 .keyframe('actor-1', 0, { x: 0 });
             });
 
-            it('does not create redundant keyframes', () => {
+            it('does not create redundant keyframes', function () {
               var actual = timeline.toJSON();
               var expected = {
                 actors: [{
@@ -358,14 +358,14 @@ describe('Timeline', () => {
             });
           });
 
-          describe('updating keyframe', () => {
+          describe('updating keyframe', function () {
             beforeEach(() => {
               timeline
                 .keyframe('actor-1', 0, { x: 0 })
                 .keyframe('actor-1', 0, { x: 100 });
             });
 
-            it('existing keyframe is updated', () => {
+            it('existing keyframe is updated', function () {
               var actual = timeline.toJSON();
               var expected = {
                 actors: [{
@@ -389,14 +389,14 @@ describe('Timeline', () => {
         });
       });
 
-      describe('multiple actors', () => {
-        describe('empty keyframes', () => {
+      describe('multiple actors', function () {
+        describe('empty keyframes', function () {
           beforeEach(() => {
             timeline.keyframe('actor-1', 0, {});
             timeline.keyframe('actor-2', 0, {});
           });
 
-          it('adds new keyframes', () => {
+          it('adds new keyframes', function () {
             var actual = timeline.toJSON();
             var expected = {
               actors: [{
@@ -419,18 +419,18 @@ describe('Timeline', () => {
       });
     });
 
-    describe('multiple keyframes', () => {
-      describe('single actor', () => {
-        describe('non-empty keyframes', () => {
-          describe('keyframes made in order', () => {
+    describe('multiple keyframes', function () {
+      describe('single actor', function () {
+        describe('non-empty keyframes', function () {
+          describe('keyframes made in order', function () {
             beforeEach(() => {
               timeline
                 .keyframe('actor-1', 0, { x: 0 })
                 .keyframe('actor-1', 100, { x: 200 });
             });
 
-            describe('creates multiple keyframes in a single track', () => {
-              it('adds new keyframes', () => {
+            describe('creates multiple keyframes in a single track', function () {
+              it('adds new keyframes', function () {
                 var actual = timeline.toJSON();
                 var expected = {
                   actors: [{
@@ -457,15 +457,15 @@ describe('Timeline', () => {
             });
           });
 
-          describe('keyframes made out of order', () => {
+          describe('keyframes made out of order', function () {
             beforeEach(() => {
               timeline
                 .keyframe('actor-1', 100, { x: 200 })
                 .keyframe('actor-1', 0, { x: 0 });
             });
 
-            describe('keyframes are added and ordered internally', () => {
-              it('adds new keyframes', () => {
+            describe('keyframes are added and ordered internally', function () {
+              it('adds new keyframes', function () {
                 var actual = timeline.toJSON();
                 var expected = {
                   actors: [{
@@ -493,14 +493,14 @@ describe('Timeline', () => {
           })
         });
 
-        describe('updating keyframes', () => {
+        describe('updating keyframes', function () {
           beforeEach(() => {
             timeline
               .keyframe('actor-1', 0, { x: 0, y: 10 })
               .keyframe('actor-1', 0, { x: 100 });
           });
 
-          it('existing keyframe is partially updated', () => {
+          it('existing keyframe is partially updated', function () {
             var actual = timeline.toJSON();
             var expected = {
               actors: [{
@@ -528,8 +528,8 @@ describe('Timeline', () => {
         });
       });
 
-      describe('multiple actors', () => {
-        describe('associating keyframes with correct actors', () => {
+      describe('multiple actors', function () {
+        describe('associating keyframes with correct actors', function () {
           beforeEach(() => {
             timeline
               .keyframe('actor-1', 0, { x: 0 })
@@ -538,7 +538,7 @@ describe('Timeline', () => {
               .keyframe('actor-2', 150, { y: 200 });
           });
 
-          it('adds keyframes to correct actors', () => {
+          it('adds keyframes to correct actors', function () {
             var actual = timeline.toJSON();
             var expected = {
               actors: [{
@@ -582,16 +582,16 @@ describe('Timeline', () => {
     });
   });
 
-  describe('#remove', () => {
+  describe('#remove', function () {
     beforeEach(() => {
       timeline
         .keyframe('actor-1', 0, { x: 0 })
         .keyframe('actor-1', 100, { x: 100 });
     });
 
-    describe('actor', () => {
-      describe('single actor', () => {
-        it('removes an entire actor', () => {
+    describe('actor', function () {
+      describe('single actor', function () {
+        it('removes an entire actor', function () {
           timeline.remove('actor-1');
 
           var actual = timeline.toJSON();
@@ -603,7 +603,7 @@ describe('Timeline', () => {
           assert.deepEqual(actual, expected);
         });
 
-        it('does nothing if requested actor is not found', () => {
+        it('does nothing if requested actor is not found', function () {
           timeline.remove('actor-9');
 
           var actual = timeline.toJSON();
@@ -631,8 +631,8 @@ describe('Timeline', () => {
         });
       });
 
-      describe('multiple actors', () => {
-        it('does not affect the unremoved actor', () => {
+      describe('multiple actors', function () {
+        it('does not affect the unremoved actor', function () {
           timeline
             .keyframe('actor-2', 0, { y: 0 })
             .keyframe('actor-2', 50, { y: 50 });
@@ -664,8 +664,8 @@ describe('Timeline', () => {
       });
     });
 
-    describe('actor + ms', () => {
-      it('removes the first keyframe', () => {
+    describe('actor + ms', function () {
+      it('removes the first keyframe', function () {
         timeline.remove('actor-1', 0);
 
         var actual = timeline.toJSON();
@@ -688,7 +688,7 @@ describe('Timeline', () => {
         assert.deepEqual(actual, expected);
       });
 
-      it('removes a middle keyframe', () => {
+      it('removes a middle keyframe', function () {
         timeline
           .keyframe('actor-1', 50, { x: 50 })
           .remove('actor-1', 50);
@@ -717,7 +717,7 @@ describe('Timeline', () => {
         assert.deepEqual(actual, expected);
       });
 
-      it('removes the last keyframe', () => {
+      it('removes the last keyframe', function () {
         timeline.remove('actor-1', 100);
 
         var actual = timeline.toJSON();
@@ -741,13 +741,13 @@ describe('Timeline', () => {
       });
     });
 
-    describe('actor + ms + props', () => {
+    describe('actor + ms + props', function () {
       beforeEach(() => {
         timeline.keyframe('actor-1', 100, { y: 100 });
       });
 
-      describe('removing only specified properties', () => {
-        it('removes specified properties and leaves others alone', () => {
+      describe('removing only specified properties', function () {
+        it('removes specified properties and leaves others alone', function () {
           timeline.remove('actor-1', 100, 'y');
 
           var actual = timeline.toJSON();
@@ -774,7 +774,7 @@ describe('Timeline', () => {
           assert.deepEqual(actual, expected);
         });
 
-        it('does nothing if nonexistent property is targeted', () => {
+        it('does nothing if nonexistent property is targeted', function () {
           timeline.remove('actor-1', 100, 'z');
 
           var actual = timeline.toJSON();
@@ -808,8 +808,8 @@ describe('Timeline', () => {
       });
     });
 
-    describe('actor + props', () => {
-      it('throws an error', () => {
+    describe('actor + props', function () {
+      it('throws an error', function () {
         assert.throws(
           () => timeline.remove('actor-1', undefined, 'x'),
           TypeError
