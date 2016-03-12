@@ -83,12 +83,7 @@ function addKeyframe (state, action) {
  * @return {Object}
  */
 function removeActor (state, action) {
-  const { id } = action;
-  const [indexOfActor] = state.findEntry(actor => actor.get('id') === id);
-
-  state = state.delete(indexOfActor);
-
-  return state;
+  return state.filterNot(actor => actor.get('id') === action.id);
 }
 
 /**
