@@ -845,7 +845,6 @@ describe('Timeline', function () {
         };
 
         assert.deepEqual(actual, expected);
-
       });
     });
 
@@ -871,7 +870,29 @@ describe('Timeline', function () {
         };
 
         assert.deepEqual(actual, expected);
+      });
 
+      it('does nothing if an invalid prop is specified', function () {
+        timeline.modify('actor-1', 0, 'z', 150);
+
+        var actual = timeline.toJSON();
+        var expected = {
+          actors: [{
+            id: 'actor-1',
+            start: 0,
+            end: 0,
+            propertyTracks: {
+              x: [{
+                ms: 0,
+                value: 0,
+                easing: 'linear'
+              }]
+            }
+          }],
+          customCurves: {}
+        };
+
+        assert.deepEqual(actual, expected);
       });
     })
   });
