@@ -847,7 +847,9 @@ describe('Timeline', function () {
         assert.deepEqual(actual, expected);
 
       });
+    });
 
+    describe('invalid parameter handling', function () {
       it('does nothing if an invalid ms is specified', function () {
         timeline.modify('actor-1', 999, 'x', 150);
 
@@ -871,6 +873,6 @@ describe('Timeline', function () {
         assert.deepEqual(actual, expected);
 
       });
-    });
+    })
   });
 });
