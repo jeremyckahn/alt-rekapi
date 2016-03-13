@@ -145,7 +145,13 @@ function removeActorKeyframes (state, action) {
 function modifyActor (state, action) {
   const { id, ms, prop, value, easing } = action;
 
-  let [actorIndex, actor] = state.findEntry(actor => actor.get('id') === id);
+  let [actorIndex, actor] =
+    (state.findEntry(actor => actor.get('id') === id) || []);
+
+  if (!actor) {
+    return state;
+  }
+
   let propertyTracks = actor.get('propertyTracks');
   let track = List(propertyTracks.get(prop));
   const [keyframePropertyIndex, keyframeProperty] =
