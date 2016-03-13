@@ -149,7 +149,12 @@ function modifyActor (state, action) {
   let propertyTracks = actor.get('propertyTracks');
   let track = List(propertyTracks.get(prop));
   const [keyframePropertyIndex, keyframeProperty] =
-    track.findEntry(prop => prop.ms === ms);
+    (track.findEntry(prop => prop.ms === ms) || []);
+
+  if (!keyframeProperty) {
+    return state;
+  }
+
   keyframeProperty.value = value;
 
   track = track.set(keyframePropertyIndex, keyframeProperty);
