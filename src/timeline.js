@@ -4,7 +4,8 @@ import reducer from './reducers/main';
 import {
   addKeyframe,
   removeActor,
-  removeActorKeyframes
+  removeActorKeyframes,
+  modifyActor
 } from './actions';
 
 export class Timeline {
@@ -68,6 +69,22 @@ export class Timeline {
       this.store.dispatch(removeActorKeyframes(actor, ms, props));
     }
 
+    return this;
+  }
+
+  /**
+   * @param {string} actor The ID of an actor
+   * @param {number} ms The millisecond in the timeline at which to modify a
+   * keyframe property
+   * @param {string} prop The name of the keyframe property to modify
+   * @param {string|number} value The new value that the keyframe property
+   * should have
+   * @param {string?} easing The new easing that the keyframe property should
+   * have
+   * @chainable
+   */
+  modify (actor, ms, prop, value, easing = null) {
+    this.store.dispatch(modifyActor(actor, ms, prop, value, easing));
     return this;
   }
 }

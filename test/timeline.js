@@ -817,4 +817,36 @@ describe('Timeline', function () {
       });
     });
   });
+
+  describe('#modify', function () {
+    beforeEach(() => {
+      timeline.keyframe('actor-1', 0, { x: 0 });
+    });
+
+    describe('basic modification', function () {
+      it('modifies a property value', function () {
+        timeline.modify('actor-1', 0, 'x', 150);
+
+        var actual = timeline.toJSON();
+        var expected = {
+          actors: [{
+            id: 'actor-1',
+            start: 0,
+            end: 0,
+            propertyTracks: {
+              x: [{
+                ms: 0,
+                value: 150,
+                easing: 'linear'
+              }]
+            }
+          }],
+          customCurves: {}
+        };
+
+        assert.deepEqual(actual, expected);
+
+      });
+    });
+  });
 });

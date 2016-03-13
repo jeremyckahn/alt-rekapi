@@ -1,7 +1,8 @@
 import {
   ADD_KEYFRAME,
   REMOVE_ACTOR,
-  REMOVE_ACTOR_KEYFRAMES
+  REMOVE_ACTOR_KEYFRAMES,
+  MODIFY_ACTOR
 } from './reducers/actors';
 
 /**
@@ -43,5 +44,23 @@ export function removeActorKeyframes (actor, ms, props) {
     id: actor,
     ms,
     props
+  };
+}
+
+/**
+ * @param {string} actor
+ * @param {number} ms
+ * @param {string} prop
+ * @param {string|number} value
+ * @param {string|null} easing
+ */
+export function modifyActor (actor, ms, prop, value, easing) {
+  return {
+    type: MODIFY_ACTOR,
+    id: actor,
+    ms,
+    prop,
+    value,
+    easing
   };
 }
