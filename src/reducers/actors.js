@@ -4,9 +4,45 @@ export const ADD_KEYFRAME = 'ADD_KEYFRAME';
 export const REMOVE_ACTOR = 'REMOVE_ACTOR';
 export const REMOVE_ACTOR_KEYFRAMES = 'REMOVE_ACTOR_KEYFRAMES';
 export const MODIFY_ACTOR = 'MODIFY_ACTOR';
+export const MOVE_KEYFRAME = 'MOVE_KEYFRAME';
 export const DEFAULT_EASING = 'linear';
 
 export const initialState = fromJS([]);
+
+/**
+ * @param {Object} state
+ * @param {string} id
+ * @param {number} ms
+ * @param {string} prop
+ * @param {Function(Object)} modifier
+ * @return {Object}
+ */
+function modifyKeyframeObject (state, id, ms, prop, modifier) {
+  let [actorIndex, actor] =
+    (state.findEntry(actor => actor.get('id') === id) || []);
+
+  if (!actor) {
+    return state;
+  }
+
+  let propertyTracks = actor.get('propertyTracks');
+  let track = List(propertyTracks.get(prop));
+  let [keyframePropertyIndex, keyframeProperty] =
+    (track.findEntry(prop => prop.ms === ms) || []);
+
+  if (!keyframeProperty) {
+    return state;
+  }
+
+  keyframeProperty = modifier(keyframeProperty);
+
+  track = track.set(keyframePropertyIndex, keyframeProperty);
+  propertyTracks = propertyTracks.set(prop, track);
+  actor = actor.set('propertyTracks', propertyTracks);
+  state = state.set(actorIndex, actor);
+
+  return state;
+}
 
 /**
  * @param {Object} state
@@ -143,33 +179,17 @@ function removeActorKeyframes (state, action) {
  * @return {Object}
  */
 function modifyActor (state, action) {
+  // TODO: Implement and test easing modification
   const { id, ms, prop, value, easing } = action;
 
-  let [actorIndex, actor] =
-    (state.findEntry(actor => actor.get('id') === id) || []);
-
-  if (!actor) {
-    return state;
-  }
-
-  let propertyTracks = actor.get('propertyTracks');
-  let track = List(propertyTracks.get(prop));
-  const [keyframePropertyIndex, keyframeProperty] =
-    (track.findEntry(prop => prop.ms === ms) || []);
-
-  if (!keyframeProperty) {
-    return state;
-  }
-
-  keyframeProperty.value = value;
-
-  track = track.set(keyframePropertyIndex, keyframeProperty);
-  propertyTracks = propertyTracks.set(prop, track);
-  actor = actor.set('propertyTracks', propertyTracks);
-  state = state.set(actorIndex, actor);
+  state = modifyKeyframeObject(state, id, ms, prop, keyframeProperty => {
+    keyframeProperty.value = value
+    return keyframeProperty;
+  });
 
   return state;
 }
+
 
 /**
  * @param {Object} state
