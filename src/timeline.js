@@ -28,6 +28,7 @@ export class Timeline {
   }
 
   /**
+   * Add a keyframe to the timeline.
    * @param {string} actor The ID of an actor
    * @param {number} ms
    * @param {Object} props The properties of the keyframe
@@ -41,6 +42,7 @@ export class Timeline {
   }
 
   /**
+   * Remove an actor, or set of keyframe properties thereof from the timeline.
    * @param {string} actor The ID of an actor
    * @param {number} [ms] The millisecond in the timeline at which to remove
    * keyframe properties
@@ -73,6 +75,7 @@ export class Timeline {
   }
 
   /**
+   * Change the value of a keyframe property.
    * @param {string} actor The ID of an actor
    * @param {number} ms The millisecond in the timeline at which to modify a
    * keyframe property
