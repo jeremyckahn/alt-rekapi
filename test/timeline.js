@@ -5,7 +5,7 @@ var assert = require('assert');
 describe('Timeline', function () {
   var timeline;
 
-  beforeEach(() => {
+  beforeEach(function () {
     timeline = new Timeline();
   });
 
@@ -44,7 +44,7 @@ describe('Timeline', function () {
       describe('single actor', function () {
         describe('empty keyframes', function () {
           describe('starting from 0', function () {
-            beforeEach(() => {
+            beforeEach(function () {
               timeline.keyframe('actor-1', 0, {});
             });
 
@@ -65,7 +65,7 @@ describe('Timeline', function () {
           });
 
           describe('starting later than 0', function () {
-            beforeEach(() => {
+            beforeEach(function () {
               timeline.keyframe('actor-1', 100, {});
             });
 
@@ -89,7 +89,7 @@ describe('Timeline', function () {
         describe('non-empty keyframes', function () {
           describe('undefined easing', function () {
             describe('single property', function () {
-              beforeEach(() => {
+              beforeEach(function () {
                 timeline.keyframe('actor-1', 0, { x: 0 });
               });
 
@@ -116,7 +116,7 @@ describe('Timeline', function () {
             });
 
             describe('multiple properties', function () {
-              beforeEach(() => {
+              beforeEach(function () {
                 timeline.keyframe('actor-1', 0, { x: 0, y: 0 });
               });
 
@@ -150,7 +150,7 @@ describe('Timeline', function () {
 
           describe('object easing', function () {
             describe('single property, single easing', function () {
-              beforeEach(() => {
+              beforeEach(function () {
                 timeline.keyframe('actor-1', 0, { x: 0 }, { x: 'fakeEasing' });
               });
 
@@ -177,7 +177,7 @@ describe('Timeline', function () {
             });
 
             describe('multiple properties, single easing', function () {
-              beforeEach(() => {
+              beforeEach(function () {
                 timeline.keyframe('actor-1', 0, { x: 0, y: 0 }, { x: 'fakeEasing' });
               });
 
@@ -209,7 +209,7 @@ describe('Timeline', function () {
             });
 
             describe('multiple properties, multiple easings', function () {
-              beforeEach(() => {
+              beforeEach(function () {
                 timeline.keyframe('actor-1', 0, { x: 0, y: 0 }, { x: 'fakeEasing', y: 'fakeEasing' });
               });
 
@@ -241,7 +241,7 @@ describe('Timeline', function () {
             });
 
             describe('single property, multiple easings', function () {
-              beforeEach(() => {
+              beforeEach(function () {
                 timeline.keyframe('actor-1', 0, { x: 0 }, { x: 'fakeEasing', y: 'fakeEasing' });
               });
 
@@ -270,7 +270,7 @@ describe('Timeline', function () {
 
           describe('string easing', function () {
             describe('single property, single easing', function () {
-              beforeEach(() => {
+              beforeEach(function () {
                 timeline.keyframe('actor-1', 0, { x: 0 }, 'fakeEasing');
               });
 
@@ -297,7 +297,7 @@ describe('Timeline', function () {
             });
 
             describe('multiple properties, single easing', function () {
-              beforeEach(() => {
+              beforeEach(function () {
                 timeline.keyframe('actor-1', 0, { x: 0, y: 0 }, 'fakeEasing');
               });
 
@@ -330,7 +330,7 @@ describe('Timeline', function () {
           });
 
           describe('duplicate keyframes', function () {
-            beforeEach(() => {
+            beforeEach(function () {
               timeline
                 .keyframe('actor-1', 0, { x: 0 })
                 .keyframe('actor-1', 0, { x: 0 });
@@ -359,7 +359,7 @@ describe('Timeline', function () {
           });
 
           describe('updating keyframe', function () {
-            beforeEach(() => {
+            beforeEach(function () {
               timeline
                 .keyframe('actor-1', 0, { x: 0 })
                 .keyframe('actor-1', 0, { x: 100 });
@@ -391,7 +391,7 @@ describe('Timeline', function () {
 
       describe('multiple actors', function () {
         describe('empty keyframes', function () {
-          beforeEach(() => {
+          beforeEach(function () {
             timeline.keyframe('actor-1', 0, {});
             timeline.keyframe('actor-2', 0, {});
           });
@@ -423,7 +423,7 @@ describe('Timeline', function () {
       describe('single actor', function () {
         describe('non-empty keyframes', function () {
           describe('keyframes made in order', function () {
-            beforeEach(() => {
+            beforeEach(function () {
               timeline
                 .keyframe('actor-1', 0, { x: 0 })
                 .keyframe('actor-1', 100, { x: 200 });
@@ -458,7 +458,7 @@ describe('Timeline', function () {
           });
 
           describe('keyframes made out of order', function () {
-            beforeEach(() => {
+            beforeEach(function () {
               timeline
                 .keyframe('actor-1', 100, { x: 200 })
                 .keyframe('actor-1', 0, { x: 0 });
@@ -494,7 +494,7 @@ describe('Timeline', function () {
         });
 
         describe('updating keyframes', function () {
-          beforeEach(() => {
+          beforeEach(function () {
             timeline
               .keyframe('actor-1', 0, { x: 0, y: 10 })
               .keyframe('actor-1', 0, { x: 100 });
@@ -530,7 +530,7 @@ describe('Timeline', function () {
 
       describe('multiple actors', function () {
         describe('associating keyframes with correct actors', function () {
-          beforeEach(() => {
+          beforeEach(function () {
             timeline
               .keyframe('actor-1', 0, { x: 0 })
               .keyframe('actor-2', 0, { y: 0 })
@@ -583,7 +583,7 @@ describe('Timeline', function () {
   });
 
   describe('#remove', function () {
-    beforeEach(() => {
+    beforeEach(function () {
       timeline
         .keyframe('actor-1', 0, { x: 0 })
         .keyframe('actor-1', 100, { x: 100 });
@@ -742,7 +742,7 @@ describe('Timeline', function () {
     });
 
     describe('actor + ms + props', function () {
-      beforeEach(() => {
+      beforeEach(function () {
         timeline.keyframe('actor-1', 100, { y: 100 });
       });
 
@@ -819,7 +819,7 @@ describe('Timeline', function () {
   });
 
   describe('#modify', function () {
-    beforeEach(() => {
+    beforeEach(function () {
       timeline.keyframe('actor-1', 0, { x: 0 });
     });
 
