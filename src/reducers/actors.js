@@ -179,11 +179,20 @@ function removeActorKeyframes (state, action) {
  * @return {Object}
  */
 function modifyActor (state, action) {
-  // TODO: Implement and test easing modification
-  const { id, ms, prop, value, easing } = action;
+  // TODO: Implement and test ms modification
+  const { id, ms, prop, modification } = action;
 
   state = modifyKeyframeObject(state, id, ms, prop, keyframeProperty => {
-    keyframeProperty.value = value
+    [
+      'value',
+      'easing'
+    ].forEach(propToModify => {
+      const newProp = modification[propToModify];
+      if (typeof newProp !== 'undefined') {
+        keyframeProperty[propToModify] = newProp;
+      }
+    });
+
     return keyframeProperty;
   });
 

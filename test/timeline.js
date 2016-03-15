@@ -823,9 +823,9 @@ describe('Timeline', function () {
       timeline.keyframe('actor-1', 0, { x: 0 });
     });
 
-    describe('basic modification', function () {
+    describe('individual modifications', function () {
       it('modifies a property value', function () {
-        timeline.modify('actor-1', 0, 'x', 150);
+        timeline.modify('actor-1', 0, 'x', { value: 150 });
 
         var actual = timeline.toJSON();
         var expected = {
@@ -846,11 +846,34 @@ describe('Timeline', function () {
 
         assert.deepEqual(actual, expected);
       });
+
+      it('modifies a property easing', function () {
+        timeline.modify('actor-1', 0, 'x', { easing: 'easeInOutQuad' });
+
+        var actual = timeline.toJSON();
+        var expected = {
+          actors: [{
+            id: 'actor-1',
+            start: 0,
+            end: 0,
+            propertyTracks: {
+              x: [{
+                ms: 0,
+                value: 0,
+                easing: 'easeInOutQuad'
+              }]
+            }
+          }],
+          customCurves: {}
+        };
+
+        assert.deepEqual(actual, expected);
+      });
     });
 
     describe('invalid parameter handling', function () {
       it('does nothing if an invalid actor is specified', function () {
-        timeline.modify('actor-9', 0, 'x', 150);
+        timeline.modify('actor-9', 0, 'x', { value: 150 });
 
         var actual = timeline.toJSON();
         var expected = {
@@ -873,7 +896,7 @@ describe('Timeline', function () {
       });
 
       it('does nothing if an invalid ms is specified', function () {
-        timeline.modify('actor-1', 999, 'x', 150);
+        timeline.modify('actor-1', 999, 'x', { value: 150 });
 
         var actual = timeline.toJSON();
         var expected = {
@@ -896,7 +919,7 @@ describe('Timeline', function () {
       });
 
       it('does nothing if an invalid prop is specified', function () {
-        timeline.modify('actor-1', 0, 'z', 150);
+        timeline.modify('actor-1', 0, 'z', { value: 150 });
 
         var actual = timeline.toJSON();
         var expected = {

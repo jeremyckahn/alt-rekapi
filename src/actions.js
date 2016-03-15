@@ -51,16 +51,15 @@ export function removeActorKeyframes (actor, ms, props) {
  * @param {string} actor
  * @param {number} ms
  * @param {string} prop
- * @param {string|number} value
- * @param {string|null} easing
+ * @param {{ value: string|number?, easing: string?, ms: number? }}
+ * modification
  */
-export function modifyActor (actor, ms, prop, value, easing) {
+export function modifyActor (actor, ms, prop, modification) {
   return {
     type: MODIFY_ACTOR,
     id: actor,
     ms,
     prop,
-    value,
-    easing
+    modification
   };
 }
