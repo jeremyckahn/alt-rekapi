@@ -869,6 +869,29 @@ describe('Timeline', function () {
 
         assert.deepEqual(actual, expected);
       });
+
+      it('modifies a property ms', function () {
+        timeline.modify('actor-1', 0, 'x', { ms: 100 });
+
+        var actual = timeline.toJSON();
+        var expected = {
+          actors: [{
+            id: 'actor-1',
+            start: 100,
+            end: 100,
+            propertyTracks: {
+              x: [{
+                ms: 100,
+                value: 0,
+                easing: 'linear'
+              }]
+            }
+          }],
+          customCurves: {}
+        };
+
+        assert.deepEqual(actual, expected);
+      });
     });
 
     describe('invalid parameter handling', function () {

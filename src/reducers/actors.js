@@ -36,10 +36,22 @@ function modifyKeyframeObject (state, id, ms, prop, modifier) {
 
   keyframeProperty = modifier(keyframeProperty);
 
+  // TODO: There's a lot of duplicated code here and in removeActorKeyframes,
+  // refactor it
+  const keyframeTimes = [];
+  propertyTracks.forEach((propertyTrack) => {
+    propertyTrack.forEach(property => keyframeTimes.push(property.ms));
+  });
+
   track = track.set(keyframePropertyIndex, keyframeProperty);
   propertyTracks = propertyTracks.set(prop, track);
-  actor = actor.set('propertyTracks', propertyTracks);
-  state = state.set(actorIndex, actor);
+
+  state = state.set(actorIndex, actor.merge({
+      propertyTracks,
+      start: Math.min.apply(Math, keyframeTimes),
+      end: Math.max.apply(Math, keyframeTimes)
+    })
+  );
 
   return state;
 }
@@ -185,7 +197,8 @@ function modifyActor (state, action) {
   state = modifyKeyframeObject(state, id, ms, prop, keyframeProperty => {
     [
       'value',
-      'easing'
+      'easing',
+      'ms'
     ].forEach(propToModify => {
       const newProp = modification[propToModify];
       if (typeof newProp !== 'undefined') {
