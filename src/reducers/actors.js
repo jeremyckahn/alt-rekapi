@@ -10,6 +10,26 @@ export const DEFAULT_EASING = 'linear';
 export const initialState = fromJS([]);
 
 /**
+ * @param {Map} actor
+ * @param {number} actorIndex
+ * @param {Map} propertyTracks
+ */
+function setActorPropertyTracks (actor, actorIndex, propertyTracks) {
+  const keyframeTimes = [];
+  propertyTracks.forEach((propertyTrack) => {
+    propertyTrack.forEach(property => keyframeTimes.push(property.ms));
+  });
+
+  actor = actor.merge({
+    propertyTracks,
+    start: Math.min.apply(Math, keyframeTimes),
+    end: Math.max.apply(Math, keyframeTimes)
+  });
+
+  return actor;
+}
+
+/**
  * @param {Object} state
  * @param {string} id
  * @param {number} ms
@@ -35,23 +55,11 @@ function modifyKeyframeObject (state, id, ms, prop, modifier) {
   }
 
   keyframeProperty = modifier(keyframeProperty);
-
-  // TODO: There's a lot of duplicated code here and in removeActorKeyframes,
-  // refactor it
-  const keyframeTimes = [];
-  propertyTracks.forEach((propertyTrack) => {
-    propertyTrack.forEach(property => keyframeTimes.push(property.ms));
-  });
-
   track = track.set(keyframePropertyIndex, keyframeProperty);
   propertyTracks = propertyTracks.set(prop, track);
 
-  state = state.set(actorIndex, actor.merge({
-      propertyTracks,
-      start: Math.min.apply(Math, keyframeTimes),
-      end: Math.max.apply(Math, keyframeTimes)
-    })
-  );
+  actor = setActorPropertyTracks(actor, actorIndex, propertyTracks);
+  state = state.set(actorIndex, actor);
 
   return state;
 }
@@ -64,7 +72,7 @@ function modifyKeyframeObject (state, id, ms, prop, modifier) {
 function addKeyframe (state, action) {
   const { id, ms } = action;
 
-  const indexOfActor = state.findIndex(function (actor) {
+  const actorIndex = state.findIndex(function (actor) {
     return actor.get('id') === id;
   });
 
@@ -87,7 +95,7 @@ function addKeyframe (state, action) {
     }];
   });
 
-  if (indexOfActor === -1) {
+  if (actorIndex === -1) {
     const newActor = Map({
       start: ms,
       end: ms,
@@ -97,7 +105,7 @@ function addKeyframe (state, action) {
 
     state = state.push(newActor);
   } else {
-    const existingActor = state.get(indexOfActor);
+    const existingActor = state.get(actorIndex);
     const existingPropertyTracks = existingActor.get('propertyTracks');
 
     const concatenatedPropertyTracks = propertyTracks.map((track, name) => {
@@ -120,7 +128,7 @@ function addKeyframe (state, action) {
       end: Math.max(existingActor.get('end'), ms)
     });
 
-    state = state.set(indexOfActor, mergedActor);
+    state = state.set(actorIndex, mergedActor);
   }
 
   return state;
@@ -143,7 +151,7 @@ function removeActor (state, action) {
 function removeActorKeyframes (state, action) {
   const { id, ms, props } = action;
 
-  const [indexOfActor, actor] =
+  let [actorIndex, actor] =
     state.findEntry(actor => actor.get('id') === id);
   let propertyTracks = actor.get('propertyTracks');
   const propsToRemove = props.length ? props : propertyTracks.keySeq();
@@ -166,21 +174,12 @@ function removeActorKeyframes (state, action) {
     propertyTracks.set(prop, propertyTrack);
   });
 
-  const keyframeTimes = [];
-  propertyTracks.forEach((propertyTrack) => {
-    propertyTrack.forEach(property => keyframeTimes.push(property.ms));
-  });
-
   // Remove any empty tracks
   propertyTracks =
     propertyTracks.filter(propertyTrack => propertyTrack.length);
 
-  state = state.set(indexOfActor, actor.merge({
-      propertyTracks,
-      start: Math.min.apply(Math, keyframeTimes),
-      end: Math.max.apply(Math, keyframeTimes)
-    })
-  );
+  actor = setActorPropertyTracks(actor, actorIndex, propertyTracks);
+  state = state.set(actorIndex, actor);
 
   return state;
 }
@@ -191,7 +190,6 @@ function removeActorKeyframes (state, action) {
  * @return {Object}
  */
 function modifyActor (state, action) {
-  // TODO: Implement and test ms modification
   const { id, ms, prop, modification } = action;
 
   state = modifyKeyframeObject(state, id, ms, prop, keyframeProperty => {
