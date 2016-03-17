@@ -1,8 +1,8 @@
 {
-  "name": "rekapi",
-  "version": "2.0.0-dev",
+  "name": "alt-rekapi",
+  "version": "0.0.0",
   "main": "",
-  "homepage": "http://rekapi.com",
+  "homepage": "https://github.com/jeremyckahn/alt-rekapi",
   "author": "Jeremy Kahn <jeremyckahn@gmail.com>",
   "description": "A keyframe animation library for JavaScript",
   "contributors": [

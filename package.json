@@ -1,9 +1,9 @@
 {
-  "name": "rekapi",
-  "version": "2.0.0-dev",
-  "homepage": "http://rekapi.com",
+  "name": "alt-rekapi",
+  "version": "0.0.0",
+  "homepage": "https://github.com/jeremyckahn/alt-rekapi",
   "author": "Jeremy Kahn <jeremyckahn@gmail.com>",
-  "description": "A keyframe animation library for JavaScript",
+  "description": "An alternative Rekapi implementation",
   "contributors": [],
   "devDependencies": {
     "babel-cli": "^6.4.5",
